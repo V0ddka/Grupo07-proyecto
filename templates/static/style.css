@@ -1,7 +1,16 @@
 body{
-    background: rgb(26, 94, 71);
+    background: rgb(26, 94, 76);
 }
 h1{
     color: white;
     font-size: 40px;
+}
+p{
+    color: white;
+}
+
+a{
+    color: white;
+    background-color: #144641;
+    padding: 10px 20px;
 }
