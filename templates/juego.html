@@ -1,0 +1,29 @@
+
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>-----Lexi-----</title></head>
+<body>
+  <h1>Lexi </h1>
+
+  <p>Corrige la palabra: {{mi_palabra}}</p>
+  <p>Significado de la palabra a corregir: {{significado}}</p>
+  <form method="post">
+    {% csrf_token %}
+    <textarea name="texto" rows="3" cols="20">{{ texto }}</textarea><br>
+    <button type="submit" name="accion" value="validar">Envia tu texto</button>
+    <button type="submit" name="accion" value="saltar" style="margin-left: 15px;">
+        Jugar de nuevo/Saltar Palabra 🔄
+    </button>
+  </form>
+  
+  {% if result %}
+    <h2>Resultado</h2>
+    <p>-{{ result.mensaje|escape }}</p>
+    <p>Que errores tenía: {{ result.correccion|escape }}</p>
+    <p>Original: {{ result.palabraBuena|escape }}</p>
+
+    
+  {% endif %}
+  
+</body>
+</html>
