@@ -5,12 +5,25 @@ h1{
     color: white;
     font-size: 40px;
 }
+h3{
+    color: white;
+}
 p{
     color: white;
 }
 
-a{
+
+
+.btn{
+    text-decoration: none;
+    padding: 1.2rem 3rem;
+    background-color: rgb(30, 69, 55);
+    border-radius: 25px;
     color: white;
-    background-color: #144641;
-    padding: 10px 20px;
+    transition: all 0.3s;
+}
+.btn:hover{
+    background-color: greenyellow;
+    color: black;
+    transform: scale(1.2);
 }
