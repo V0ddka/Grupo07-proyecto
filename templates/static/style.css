@@ -4,15 +4,17 @@ body{
 h1{
     color: white;
     font-size: 40px;
+    display: grid;
+    place-items: center;
 }
 h3{
     color: white;
+    display: grid;
+    place-items: center;
 }
 p{
     color: white;
 }
-
-
 
 .btn{
     text-decoration: none;
@@ -21,9 +23,16 @@ p{
     border-radius: 25px;
     color: white;
     transition: all 0.3s;
+    display: inline-block;
 }
 .btn:hover{
     background-color: greenyellow;
     color: black;
     transform: scale(1.2);
+}
+.sec{
+    float:left;
+    margin: 50px;
+    display: grid;
+    place-items: center;
 }
