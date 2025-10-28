@@ -99,12 +99,13 @@ def sustituir_b_por_v(palabra_original: str, num_fijo:int) -> str:
 
     return mala_y_correccion
 
-ruta_base_texto = os.path.dirname(__file__)
-carpeta_datos = "data"
-nombre_archivo = "mi_palabra.txt"
-ruta_absoluta_archivo = os.path.join(ruta_base_texto, carpeta_datos, nombre_archivo)
+
 
 def juego_ortografia(request):
+    ruta_base_texto = os.path.dirname(__file__)
+    carpeta_datos = "data"
+    nombre_archivo = "palabras_proyecto_ortografia2.txt"
+    ruta_absoluta_archivo = os.path.join(ruta_base_texto, carpeta_datos, nombre_archivo)
     palabra_a_mostrar = "No se encontró archivo"
     significado= "No se encontró archivo"
     if 'num_regla' not in request.session:
@@ -112,7 +113,7 @@ def juego_ortografia(request):
     num_regla = request.session['num_regla']
 
     try:
-        with open(ruta_absoluta_archivo, 'r', encoding='utf-8') as archivo:
+        with open(ruta_absoluta_archivo, 'r', encoding='UTF-8') as archivo:
             dicc_todas_pal ={}
             dicc_p_malas ={}
             l = 0
