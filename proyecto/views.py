@@ -175,7 +175,7 @@ def juego_ortografia(request):
                 del request.session['num_ale']
             
             # Redirigir inmediatamente (POST-Redirect-GET)
-            return redirect('home')
+            return redirect('juego')
         elif accion_solicitada == 'validar':
             texto = request.POST.get('texto', '')
             if palabraBuena and texto.lower() == palabraBuena.lower():
