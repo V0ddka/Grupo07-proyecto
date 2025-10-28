@@ -55,6 +55,7 @@ def inicio(request):
             "variable2": "error o tilde faltante",
             "variable3": "parte final",
             "regla": "explicación de la regla ortográfica"
+        en la regla trata de escribir de forma clara y concisa la regla ortográfica aplicable
         }}
         Ejemplo: {{"variable1": "canci", "variable2": "ó", "variable3": "n", "regla": "Palabras agudas terminadas en n, s o vocal llevan tilde"}}
         """

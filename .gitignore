@@ -3,3 +3,4 @@ proyecto/__pycache__/settings.cpython-313.pyc
 proyecto/__pycache__/urls.cpython-313.pyc
 proyecto/__pycache__/views.cpython-313.pyc
 proyecto/__pycache__/wsgi.cpython-313.pyc
+.env
