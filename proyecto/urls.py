@@ -24,5 +24,6 @@ urlpatterns = [
     #path('', views.inicio, name='inicio'),
     path('registro/', views.registro_usuario, name='registro'),
     path('login/', views.login_view, name='login'),
+    path('juego/', views.juego_ortografia, name='juego'),
     path('cuentas/', include('cuentas.urls')),
 ]
