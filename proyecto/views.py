@@ -104,7 +104,7 @@ def sustituir_b_por_v(palabra_original: str, num_fijo:int) -> str:
 def juego_ortografia(request):
     ruta_base_texto = os.path.dirname(__file__)
     carpeta_datos = "data"
-    nombre_archivo = "palabras_proyecto_ortografia2.txt"
+    nombre_archivo = "palabras_proyecto_ortografia.txt"
     ruta_absoluta_archivo = os.path.join(ruta_base_texto, carpeta_datos, nombre_archivo)
     palabra_a_mostrar = "No se encontró archivo"
     significado= "No se encontró archivo"
