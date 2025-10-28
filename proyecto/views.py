@@ -57,7 +57,7 @@ def login_view(request):
                 # Si el usuario existe y las credenciales son correctas, lo logueamos
                 login(request, user)
                 # Redirigimos a la página de inicio (o la que tú definas)
-                return redirect('inicio')  # Asegúrate de definir esta URL en 'urls.py'
+                return redirect('home')  # Asegúrate de definir esta URL en 'urls.py'
             else:
                 # Esto es manejado generalmente por form.is_valid() si usas AuthenticationForm
                 # Si quieres un mensaje más específico, podrías agregarlo aquí.
