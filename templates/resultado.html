@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resultado</title>
+    <style>
+        .correcto { color: green; font-weight: bold; }
+        .error { color: red; font-weight: bold; text-decoration: underline; }
+        .regla { background: #f0f8ff; padding: 15px; border-radius: 8px; margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <h2>Análisis de: "{{ palabra_usuario }}"</h2>
+    
+    <div class="palabra">
+        <span class="correcto">{{ resultado.variable1 }}</span>
+        <span class="error">{{ resultado.variable2 }}</span>
+        <span class="correcto">{{ resultado.variable3 }}</span>
+    </div>
+    
+    <div class="regla">
+        <h3>📚 Regla ortográfica:</h3>
+        <p>{{ resultado.regla }}</p>
+    </div>
+    
+    <a href="/">← Volver</a>
+</body>
+</html>

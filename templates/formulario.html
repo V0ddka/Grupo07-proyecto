@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Analizador Ortográfico</title>
+</head>
+<body>
+    <h2>¿Cómo se escribe correctamente?</h2>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="palabra" placeholder="Escribe 'canción'..." required>
+        <button type="submit">Analizar</button>
+    </form>
+</body>
+</html>
