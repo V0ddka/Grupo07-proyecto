@@ -30,7 +30,7 @@ def registro_usuario(request):
             messages.success(request, f"¡Bienvenido, {user.username}! Tu cuenta ha sido creada.")
             
             # 4. Redirigir a una página de éxito (ej. el inicio)
-            return redirect('inicio') # Asegúrate de tener una URL con este nombre
+            return redirect('home') # Asegúrate de tener una URL con este nombre
             
     # 5. Si la solicitud es GET o el formulario es inválido,
     #    instanciar un formulario vacío o con errores para mostrar
