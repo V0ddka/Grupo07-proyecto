@@ -7,24 +7,31 @@
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
-    <h1>Bienvenido a mi Lexi</h1>
-    <hr>
-    <h3>Lexi es una app de ortografia blablabla</h3>
-    <ul class="opt">
-        <li class="sec">
-            <a href="login" class="btn">Inicio sesión</a> 
-            <p>Si ya tienes una cuenta inicia sesión</p>
-        </li>
-        <li class="sec">
-            <a href="registro" class="btn">Registro</a>
-            <p>Si no tienes una cuenta registrate</p>
-        </li>
-        <li class="sec">
-            <a href="juego" class="btn">Juego (en produccion)</a>
-            <p>no usar por ahora</p>
-        </li>
+    <div class="cont">
+        <h1>Bienvenido a "Lexi"</h1>
+        <hr>
+        <h3>¡Mejora tu ortogrfia jugando! Lexi te ayudara a aprender de manera divertida.</h3>
+        <div class="images">
+            <img src="static/descarga.jpeg">
+            <img src="static/descarga (1).jpeg">
+            <img src="static/images.jpeg">
+        </div>
         
-    </ul>
-        
+        <ul class="btns">
+            <li class="bt">
+                <a href="login" class="btn">Inicio sesión</a> 
+                <p>Si ya tienes una cuenta inicia sesión</p>
+            </li>
+            <li class="bt">
+                <a href="registro" class="btn">Registro</a>
+                <p>Si no tienes una cuenta registrate</p>
+            </li>
+            <!--<li class="sec">
+                <a href="juego" class="btn">Juego (en produccion)</a>
+                <p>no usar por ahora</p>
+            </li>-->
+            
+        </ul>
+    </div>
 </body>
 </html>
