@@ -12,14 +12,21 @@
         {% endif %}
         <form id="form-login" method="post" action="">
             {% csrf_token %}
-
-            <div class="w450" id="username">
+            
+            <label for="{{ form.username.id_for_label }}">Ingrese su usuario:</label>
+                {{ form.username }}
+            </div>
+            <div class="w450" id="password">
+                <label for="{{ form.password.id_for_label }}">Ingrese su contraseña:</label>
+                {{ form.password }}
+            </div>
+            <!--<div class="w450" id="username">
                 {{ form.username }}
             </div>
 
             <div class="w450" id="password">
                 {{ form.password }}
-            </div>
+            </div>(asi era el login antes por si lo necesitan, lo que puse es para ponerle texto al lado)-->
             
             
             <button id="btn-registrar" class="button_large">Entrar</button>
