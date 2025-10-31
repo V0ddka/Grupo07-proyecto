@@ -47,7 +47,11 @@ p{
 }
 .images{
     display: flex;
-    gap:20px;
+    gap:40px;
     justify-content: center;
-    border-radius: 50%;
+}
+.img{
+    border-radius: 20px;
+    width: 200px;
+    height: auto;
 }
