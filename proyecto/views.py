@@ -68,10 +68,10 @@ def sustituir_b_por_v(palabra_original: str, num_fijo:int) -> str:
                 posibles_correcciones.append([i, "En terminaciones con ito, ita, illo, illa, ico, ica, ión corresponde usar la letra c mientras la palabra original no provenga con la letra z ó s, ejemplo mesa -> mesita (no es con c), camión -> camioncito (es con c)"])
         elif palabra[i] in tildes:
             k = tildes.index(palabra[i])
-            posibles_correcciones.append([i, f"La palabra llevaba tilde ({palabra[i]}) recuerda pensar en la acentuación de la palabra"])
+            posibles_correcciones.append([i, f"La palabra llevaba tilde , recuerda pensar en la acentuación de la palabra"])
             
         elif palabra[i] == "z" and num == 1:
-            posibles_correcciones.append([i, "Aqui correspondia una z, recuerda pensar en la pronunciación de la palabra, la z es un sonido distindo al de la s"])
+            posibles_correcciones.append([i, "Aquí correspondia una z, recuerda pensar en la pronunciación de la palabra, la z es un sonido distindo al de la s"])
             
     
     if not posibles_correcciones:
@@ -173,7 +173,7 @@ def juego_ortografia(request):
                 
                 
             else:
-                request.session['mensaje_resultado'] = f"Incorrecto. La palabra correcta es: {palabraBuena}. ¡Inténtalo de nuevo!"
+                request.session['mensaje_resultado'] = f"Incorrecto ¡Inténtalo de nuevo!"
             mensaje = request.session.pop('mensaje_resultado', None)
             quepaso = None
             if mensaje:
