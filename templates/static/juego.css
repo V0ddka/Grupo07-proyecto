@@ -1,0 +1,107 @@
+body{
+    background: rgb(26, 94, 76);
+}
+
+h1{
+    color: white;
+    font-size: 40px;
+    display: grid;
+    place-items: center;
+}
+
+.rectangulo-verde1{
+  width: 80%;                   
+  max-width: 700px;             
+  height: 150px;                
+  background-color: #1E4537;    
+  
+  margin: 30px auto;            
+  border-radius: 25px;         
+  border: 1px solid #ffffff;
+  
+  
+}
+p{
+    color: white;
+    text-align: center;
+    font-size: 20px;
+}
+
+
+
+textarea{
+    width: 300px;
+    height: 20px;
+    display: block;
+    margin: 0 auto;
+    place-items: center;
+    background-color: rgb(26, 100, 76);
+    outline: none;
+    resize: none;
+    border: 2px solid #999;
+    
+
+}
+
+
+.botones{
+  border: 3px;
+  display: flex;
+  justify-content: center; 
+  gap: 15px;               
+  margin-top: 10px;
+
+  
+}
+
+
+.botones button{
+  padding: 1.2rem 3rem;
+  background: rgb(30,69,55);
+  color: #fff;
+  border: 3px solid transparent;    
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color .2s, border-color .2s, color .2s, box-shadow .2s, transform .15s;
+}
+
+.botones button:hover{
+  background: #2a8a62;              
+  border-color: greenyellow;          
+  transform: scale(1.03);
+}
+
+
+button{
+  text-decoration: none;
+  padding: 1.2rem 3rem;
+  background-color: rgb(30, 69, 55);
+  border-radius: 25px;
+  color: white;
+  transition: all 0.3s;
+  border: none;
+  cursor: pointer;
+}
+
+.rectangulo-verde2{
+
+  width: 80%;                   
+  max-width: 700px;             
+  height: 50px;                
+  background-color: #1E4537;    
+  
+  margin: 30px auto;            
+  border-radius: 15px;         
+  border: 1px solid #fffff1;
+
+
+
+}
+
+h2{
+    color: white;
+    font-size: 20px;
+    display: grid;
+    place-items: center;
+
+}

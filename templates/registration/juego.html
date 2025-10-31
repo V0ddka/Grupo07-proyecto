@@ -1,22 +1,43 @@
-
 <!doctype html>
-<html>
-<head><meta charset="utf-8"><title>-----Lexi-----</title></head>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>-----Lexi-----</title>
+  <link rel="stylesheet" href="juego.css">
+</head>
 <body>
-  <h1>Lexi </h1>
+  <h1>Corrige la palabra</h1>
 
-  <p>Corrige la palabra: {{mi_palabra}}</p>
-  <p>Significado de la palabra a corregir: {{significado}}</p>
-  <form method="post">
-    {% csrf_token %}
-    <textarea name="texto" rows="3" cols="20">{{ texto }}</textarea><br>
-    <button type="submit" name="accion" value="validar">Envia tu texto</button>
-    <button type="submit" name="accion" value="saltar" style="margin-left: 15px;">
-        Jugar de nuevo/Saltar Palabra 🔄
-    </button>
+
+    <p>Corrige la palabra: </p>
+
+    <div class ="rectangulo-verde1">
+    <p><strong>{{mi_palabra}}</strong></p>
+
+    <textarea rows="3" cols="20" placeholder="Escribe la palabra aquí"></textarea><br>
+
+
+    </div>
+
+
+  <form>
+    
+    <div class="botones">
+      <button type="submit" >Enviar el texto</button>
+      <button type="button" >Jugar de nuevo/Saltar palabra</button>
+
+    </div>
   </form>
-  
-  {% if result %}
+
+
+
+  <div class ="rectangulo-verde2">
+    <div class="descripcion">
+    <h2>{{significado}}</h2>
+      </div>
+
+
+{% if result %}
     <h2>Resultado</h2>
     <p>-{{ result.mensaje|escape }}</p>
     <p>Que errores tenía: {{ result.correccion|escape }}</p>
