@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="es">
 <head>
@@ -6,43 +7,39 @@
   <link rel="stylesheet" href="{% static 'juego.css' %}">
 </head>
 <body>
-  <h1>Corrige la palabra</h1>
+  <h1>Juego "Corrige la palabra":</h1>
 
+    <form method="post">
+      {% csrf_token %}
+      <div class ="rectangulo-verde1">
+          <p> Escribe la letra que crees que corresponda aquí:</p>
+          <div class="correccion-linea">
+          <span>{{ part1 }}</span>
+          <textarea rows="1" cols="1" name="texto" >{{ texto }}</textarea>
+          <span>{{ part2 }}</span>
+        </div>
 
-    <p>Corrige la palabra: </p>
+      </div>
+      <div class="botones">
+        <button type="submit" name="accion" value="validar" >Enviar el texto</button>
+        <button type="submit" name="accion" value="saltar" >Jugar de nuevo/Saltar palabra</button>
 
-    <div class ="rectangulo-verde1">
-    <p><strong>{{mi_palabra}}</strong></p>
-
-    <textarea rows="3" cols="20" placeholder="Escribe la palabra aquí"></textarea><br>
-
-
-    </div>
-
-
-  <form>
-    
-    <div class="botones">
-      <button type="submit" >Enviar el texto</button>
-      <button type="button" >Jugar de nuevo/Saltar palabra</button>
-
-    </div>
-  </form>
-
-
-
+      </div>
+    </form>
   <div class ="rectangulo-verde2">
     <div class="descripcion">
     <h2>{{significado}}</h2>
       </div>
-
+  </div>
 
 {% if result %}
+  <div class ="rectangulo-verde2">
     <h2>Resultado</h2>
     <p>-{{ result.mensaje|escape }}</p>
-    <p>Que errores tenía: {{ result.correccion|escape }}</p>
+    <h2>¿Cuál era la regla que le correspondía?</h2>
+    <p>{{ result.correccion|escape }}</p>
     <p>Original: {{ result.palabraBuena|escape }}</p>
-
+  </div>
     
   {% endif %}
   

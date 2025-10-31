@@ -41,23 +41,23 @@ def sustituir_b_por_v(palabra_original: str, num_fijo:int) -> str:
             # a) Antecedida por 'm' (mB -> mV)
             if i > 0 and palabra[i-1] == 'm':
                 nueva_palabra[i] = 'v'
-                posibles_correcciones.append([i,"b antecedida por m cambiada a v"])
+                posibles_correcciones.append([i,"Después de la letra m corresponde la letra b, otra regla es que la letra v va después de una n"])
             
             #Seguida por 'l' o 'r' (Bl -> Vl, Br -> Vr)
             elif i < len(palabra) - 1 and palabra[i+1] in ('l', 'r'):
-                 posibles_correcciones.append([i,"b seguida por l o r cambiada a v"])
+                 posibles_correcciones.append([i,"La b va antes de las consonantes l y r, no la v"])
             elif num == 1:
                 posibles_correcciones.append([i,"Le correspondia una b por regla general"])
         elif palabra[i] == "v":
             if i > 0 and (palabra[i-1] == 'n' or palabra[i-1] == 'b' or palabra[i-1] == 'd'):
-                 posibles_correcciones.append([i,"v antecedida por n, b o d cambiada a b"])
+                 posibles_correcciones.append([i,"Después de la letra n corresponde la letra v, otra regla es que la letra b va después de una m"])
             elif i > 0 and palabra[i-1] in "aei" and i < len(palabra) - 1 and palabra[i+1] in ('a', 'o'):
                 
-                 posibles_correcciones.append([i,"palabra terminada por avo, ava, evo, eva, ivo e iva cambiando la v a b"])
+                 posibles_correcciones.append([i,"Los adjetivos (Una palabra que describe o califica) que terminan en avo, ava, evo, eva, ivo e iva les coresponde la v, a excepcion de las formas del verbo haber y palabras como silaba, cabo, jarabe, etc"])
             elif i > 0 and palabra[i-1] in "ae" and i < len(palabra) - 1 and palabra[i+1] == "e":
-                posibles_correcciones.append([i,"palabra terminada por ave, eve, eva cambiando la v a b"])
+                posibles_correcciones.append([i,"Los adjetivos (Una palabra que describe o califica) que terminan en avo, ava, evo, eva, ivo e iva les coresponde la v, a excepcion de las formas del verbo haber y palabras como silaba, cabo, jarabe, etc"])
             elif i > 1 and palabra[i-2]== "o" and palabra[i-1]=="l":
-                posibles_correcciones.append([i,"palabra terminada por olvo, olva cambiando la v a b"])
+                posibles_correcciones.append([i,"palabra terminada por olvo, olva llevan v"])
 
                 
             elif num == 1:
@@ -65,13 +65,13 @@ def sustituir_b_por_v(palabra_original: str, num_fijo:int) -> str:
         elif palabra[i]== "c":
             
             if i < len(palabra) - 1 and palabra[i+1:len(palabra)] in ("ito","ita","illo","illa","ico","ica","ión"):
-                posibles_correcciones.append([i, "c por terminación ito, ita, illo, illa, ico, ica, ión"])
+                posibles_correcciones.append([i, "En terminaciones con ito, ita, illo, illa, ico, ica, ión corresponde usar la letra c mientras la palabra original no provenga con la letra z ó s, ejemplo mesa -> mesita (no es con c), camión -> camioncito (es con c)"])
         elif palabra[i] in tildes:
             k = tildes.index(palabra[i])
-            posibles_correcciones.append([i, f"Letra con tilde {palabra[i]} cambiada a {notilde[k]}"])
+            posibles_correcciones.append([i, f"La palabra llevaba tilde ({palabra[i]}) recuerda pensar en la acentuación de la palabra"])
             
         elif palabra[i] == "z" and num == 1:
-            posibles_correcciones.append([i, "z cambiada a s por regla general"])
+            posibles_correcciones.append([i, "Aqui correspondia una z, recuerda pensar en la pronunciación de la palabra, la z es un sonido distindo al de la s"])
             
     
     if not posibles_correcciones:
