@@ -1,9 +1,11 @@
+{% load static %}
 <html lang="es">
 <head></head>
 <body>
 
 <div class="contianer-form">
-    <h3 class="txt_gris_medio">Acceder</h3>
+    <h2>Acceder</h2>
+    <link rel="stylesheet" href="{% static 'login.css' %}">
     <hr>
     <div class="login_container">
         {% if form.errors %}
@@ -12,7 +14,7 @@
         {% endif %}
         <form id="form-login" method="post" action="">
             {% csrf_token %}
-            
+            <div class="w450" id="password">
             <label for="{{ form.username.id_for_label }}">Ingrese su usuario:</label>
                 {{ form.username }}
             </div>
@@ -35,6 +37,10 @@
         <a href="#" class="txt_verde txt_center mt15 mb20" style="display: block;">Aviso de privacidad</a>
     </div>
 </div>
-
+{% if request.GET.next %}
+<div class ="alert-warning-restriction">
+    **⛔️ ¡Acceso Restringido! Debes iniciar sesión para acceder a esta página.**
+</div>
+{% endif %}
 </body>
 </html>

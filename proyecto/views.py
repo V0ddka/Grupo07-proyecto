@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from random import randint, choice
 
@@ -82,7 +83,7 @@ def sustituir_b_por_v(palabra_original: str, num_fijo:int) -> str:
 
     return mala_y_correccion
 
-
+@login_required
 def juego_ortografia(request):
     ruta_base_texto = os.path.dirname(__file__)
     carpeta_datos = "data"
