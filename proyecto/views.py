@@ -1,7 +1,7 @@
 
 import os
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
@@ -39,12 +39,11 @@ def sustituir_b_por_v(palabra_original: str, num_fijo:int) -> str:
     num = num_fijo%2
     for i in range(len(palabra)):
         if palabra[i] == 'b':
-            # a) Antecedida por 'm' (mB -> mV)
+            
             if i > 0 and palabra[i-1] == 'm':
                 nueva_palabra[i] = 'v'
                 posibles_correcciones.append([i,"Después de la letra m corresponde la letra b, otra regla es que la letra v va después de una n"])
             
-            #Seguida por 'l' o 'r' (Bl -> Vl, Br -> Vr)
             elif i < len(palabra) - 1 and palabra[i+1] in ('l', 'r'):
                  posibles_correcciones.append([i,"La b va antes de las consonantes l y r, no la v"])
             elif num == 1:
@@ -153,13 +152,13 @@ def juego_ortografia(request):
             
             request.session['mensaje_resultado'] = '¡Palabra saltada! Cargando una nueva...'
             
-            # Borrar las claves de sesión para forzar nueva palabra y regla
+            
             if 'num_regla' in request.session:
                 del request.session['num_regla']
             if 'num_ale' in request.session:
                 del request.session['num_ale']
             
-            # Redirigir inmediatamente (POST-Redirect-GET)
+            
             return redirect('juego')
         elif accion_solicitada == 'validar':
             texto = request.POST.get('texto', '')
@@ -170,7 +169,7 @@ def juego_ortografia(request):
                 if 'num_palabra' in request.session:
                     del request.session['num_palabra']
                 
-                # C) REDIRECCIÓN: Esto evita el reenvío del formulario
+                
                 
                 
             else:
@@ -195,66 +194,47 @@ def juego_ortografia(request):
 def home (request):
     return render(request,'home.html')
 def registro_usuario(request):
-    # 1. Si la solicitud es POST, el usuario está enviando datos
+    
     if request.method == 'POST':
-        # Instanciar el formulario con los datos POST
+        
         form = UserCreationForm(request.POST) 
         
-        # 2. Validar el formulario
+        
         if form.is_valid():
-            # 3. Guardar el nuevo usuario en la base de datos
+            
             user = form.save()
-            
-            # Opcional: Loguear al usuario inmediatamente después del registro
             login(request, user)
-            
-            # Opcional: Agregar un mensaje de éxito
             messages.success(request, f"¡Bienvenido, {user.username}! Tu cuenta ha sido creada.")
-            
-            # 4. Redirigir a una página de éxito (ej. el inicio)
-            return redirect('home') # Asegúrate de tener una URL con este nombre
-            
-    # 5. Si la solicitud es GET o el formulario es inválido,
-    #    instanciar un formulario vacío o con errores para mostrar
+            return redirect('home') 
     else:
         form = UserCreationForm()
-        
-    # 6. Renderizar la plantilla, pasando el formulario
     return render(request, 'registration/registro.html', {'form': form})
+
 def login_view(request):
-    # Si la solicitud es un POST, se envían los datos del formulario
     if request.method == 'POST':
-        # Instanciamos el formulario de autenticación con los datos del POST
         form = AuthenticationForm(request, data=request.POST)
         
         if form.is_valid():
-            # Los datos son válidos, intentamos autenticar
+            
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
-            
-            # Autenticamos al usuario
             user = authenticate(username=username, password=password)
             
             if user is not None:
-                # Si el usuario existe y las credenciales son correctas, lo logueamos
                 login(request, user)
-                # Redirigimos a la página de inicio (o la que tú definas)
-                return redirect('home')  # Asegúrate de definir esta URL en 'urls.py'
+                return redirect('home') 
             else:
-                # Esto es manejado generalmente por form.is_valid() si usas AuthenticationForm
-                # Si quieres un mensaje más específico, podrías agregarlo aquí.
+                
                 pass
-        
-        # Si el formulario no es válido (credenciales incorrectas),
-        # el template mostrará form.errors (tu mensaje de alerta)
-        # y renderizará el formulario de nuevo.
-
-    # Si la solicitud es GET o el POST falla, mostramos el formulario
     else:
         form = AuthenticationForm()
 
-    # Renderizamos la plantilla, pasando el formulario
     return render(request, 'registration/login.html', {'form': form})
+
+def logout_view(request):
+    logout(request)
+    return redirect("home")
+
 # mi_proyecto/views.py
 
 #from django.shortcuts import render

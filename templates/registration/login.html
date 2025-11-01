@@ -22,25 +22,17 @@
                 <label for="{{ form.password.id_for_label }}">Ingrese su contraseña:</label>
                 {{ form.password }}
             </div>
-            <!--<div class="w450" id="username">
-                {{ form.username }}
-            </div>
-
-            <div class="w450" id="password">
-                {{ form.password }}
-            </div>(asi era el login antes por si lo necesitan, lo que puse es para ponerle texto al lado)-->
-            
-            
             <button id="btn-registrar" class="button_large">Entrar</button>
             <div class="clearfix"></div>
         </form>
-        <a href="#" class="txt_verde txt_center mt15 mb20" style="display: block;">Aviso de privacidad</a>
+        <a href="#" class="txt_verde txt_center mt15 mb20" style="display: block;">Aviso de privacidad</a><br>
+        {% if request.GET.next %}
+        <div class ="alert-warning-restriction">
+            ⛔️ ¡Acceso Restringido! Debes iniciar sesión para acceder a esta página.
+        </div>
+        {% endif %}
     </div>
 </div>
-{% if request.GET.next %}
-<div class ="alert-warning-restriction">
-    **⛔️ ¡Acceso Restringido! Debes iniciar sesión para acceder a esta página.**
-</div>
-{% endif %}
+
 </body>
 </html>

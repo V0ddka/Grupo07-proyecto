@@ -18,23 +18,30 @@
         </div> 
         
         <ul class="btns">
-            <li class="bt">
-                <a href="login" class="btn">Inicio sesión</a> 
-                <p>Si ya tienes una cuenta, inicia sesión</p>
-            </li>
-            <li class="bt">
-                <a href="juego" class="btn">Jugar</a> 
-                <p>Presiona para empezar</p>
-            </li>
-            <li class="bt">
-                <a href="registro" class="btn">Registro</a>
-                <p>Si no tienes una cuenta, registrate</p>
-            </li>
-            <!--<li class="sec">
-                <a href="juego" class="btn">Juego (en produccion)</a>
-                <p>no usar por ahora</p>
-            </li>-->
-            
+            {% if user.is_authenticated %}
+                <li class="bt">
+                    <a href="{% url 'logout' %}" class="btn">Cerrar Sesión ({{ user.username }})</a> 
+                    <p>Presiona para cerrar tu sesión actual.</p>
+                </li>
+                <li class="bt">
+                    <a href="juego" class="btn">Jugar</a> 
+                    <p>Presiona para empezar</p>
+                </li>
+            {% else %}
+                <li class="bt">
+                    <a href="login" class="btn">Inicio sesión</a> 
+                    <p>Si ya tienes una cuenta, inicia sesión</p>
+                </li>
+                <li class="bt">
+                    <a href="juego" class="btn">Jugar</a> 
+                    <p>Presiona para empezar</p>
+                </li>
+                <li class="bt">
+                    <a href="registro" class="btn">Registro</a>
+                    <p>Si no tienes una cuenta, registrate</p>
+                </li>
+            {% endif %}
+
         </ul>
     </div>
    <img src="static/logo.png" class="logo"> 
