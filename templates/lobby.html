@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css%}
+    <link rel="stylesheet" href="{% static 'css/lobby.css' %}">
+{% endblock %}
+
+{% block content%}
+    <div class="container">
+        <h1>¿Qué quieres hacer hoy?</h1>
+        <h3>"Los errores no son fracasos, son señal de que lo estamos intentando"</h3>
+        <div class="select">
+            <a class="type" href="#">
+                <img src="static/img/aprende.png">
+                Lee apuntes
+            </a>
+                
+            <a class="type" href="#">
+                <img src="static/img/descarga.jpeg"> 
+                Ejercita tus conocimientos
+            </a>
+                
+            <a class="type" href="#">
+                <img src="static/img/images.jpeg">
+                Desafiate a ti mismo
+            </a>
+        </div>  
+    </div>
+{% endblock %}

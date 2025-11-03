@@ -193,6 +193,7 @@ def juego_ortografia(request):
 
 def home (request):
     return render(request,'home.html')
+
 def registro_usuario(request):
     
     if request.method == 'POST':
@@ -205,7 +206,7 @@ def registro_usuario(request):
             user = form.save()
             login(request, user)
             messages.success(request, f"¡Bienvenido, {user.username}! Tu cuenta ha sido creada.")
-            return redirect('home') 
+            return redirect('lobby') 
     else:
         form = UserCreationForm()
     return render(request, 'registration/registro.html', {'form': form})
@@ -222,7 +223,7 @@ def login_view(request):
             
             if user is not None:
                 login(request, user)
-                return redirect('home') 
+                return redirect('lobby') 
             else:
                 
                 pass
@@ -234,6 +235,9 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect("home")
+
+def lobby(request):
+    return render(request,'lobby.html')
 
 # mi_proyecto/views.py
 

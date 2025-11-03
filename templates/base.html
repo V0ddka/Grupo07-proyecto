@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>{% block title %}Titulo{% endblock %}</title>
+        <link rel="stylesheet" href="{% static 'css/header.css' %}">
+        {% block extra_css %}
+        {% endblock %}
+    </head>
+    <body>
+        <header>
+            <div class="left">
+                <img src="static/img/logo.png" class="logo">
+                <span class="name">Lexi</span>
+            </div>
+  
+            <div class="right">
+                <a href="home.html">
+                    <img src="static/img/aprende.png">
+                </a>
+
+                <a href="#">
+                    <img src="static/img/images.jpeg">
+                </a>
+
+                <a href="#">
+                    <img src="static/img/images.jpeg">
+                </a>
+
+            </div>
+        </header>
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+        
+    </body>
+
+</html>

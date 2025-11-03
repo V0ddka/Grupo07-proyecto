@@ -1,23 +1,25 @@
 body{
-    background: rgb(26, 94, 76);
-    margin: 0;
-    padding: 0;
-    min-height: 10vh;
+    background-color: rgb(26, 94, 76);
+}
+.cont{
     display: flex;
     justify-content: center;
     flex-direction: column;
+    position: relative;
+    margin-top: 6rem;
+    border: 2px solid red;
 }
 h1{
     color: white;
     font-size: 60px;
-    display: grid;
-    place-items: center;
+    text-align: center;
+    padding: 1rem;
 }
 h3{
     color: white;
-    display: grid;
-    place-items: center;
     font-size: 30px;
+    text-align: center;
+    padding: 1rem;
 }
 p{
     color: white;
@@ -53,12 +55,5 @@ p{
 .img{
     border-radius: 20px;
     width: 200px;
-    height: auto;
-}
-.logo{
-    position: absolute;
-    top: 5px;
-    right: 20px;
-    width: 150px;
     height: auto;
 }

@@ -10,7 +10,7 @@ def register_view(request):
         if form.is_valid():
             form.save
             messages.success(request, "Cuenta creada con éxito.")
-            return redirect('home')
+            return redirect('lobby')
     else:
         form = UserCreationForm()
     
@@ -23,7 +23,7 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('home')
+            return redirect('lobby')
         else:
             messages.error(request, "Nombre de usuario o contraseña incorrectos.")
     

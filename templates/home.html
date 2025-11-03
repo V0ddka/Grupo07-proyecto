@@ -1,49 +1,55 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Lexi</title>
-    <link rel="stylesheet" href="{% static 'style.css' %}">
-</head>
-<body>
-    <div class="cont">
-        <h1>Bienvenido a "Lexi"</h1>
-        <hr>
-        <h3>¡Mejora tu ortografía jugando! Lexi te ayudará a aprender de manera divertida.</h3>
-        <div class="images">
-            <img src="static/juega.png" class="img">
-            <img src="static/aprende.png" class="img">
-            <img src="static/desafiate.png" class="img">
-        </div> 
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Lexi</title>
+        <link rel="stylesheet" href="{% static 'css/header.css' %}">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    </head>
+    <body>
+        <header>
+            <div class="left">
+                <img src="static/img/logo.png" class="logo">
+                <span class="name">Lexi</span>
+            </div>
+        </header>
         
-        <ul class="btns">
-            {% if user.is_authenticated %}
-                <li class="bt">
-                    <a href="{% url 'logout' %}" class="btn">Cerrar Sesión ({{ user.username }})</a> 
-                    <p>Presiona para cerrar tu sesión actual.</p>
-                </li>
-                <li class="bt">
-                    <a href="juego" class="btn">Jugar</a> 
-                    <p>Presiona para empezar</p>
-                </li>
-            {% else %}
-                <li class="bt">
-                    <a href="login" class="btn">Inicio sesión</a> 
-                    <p>Si ya tienes una cuenta, inicia sesión</p>
-                </li>
-                <li class="bt">
-                    <a href="juego" class="btn">Jugar</a> 
-                    <p>Presiona para empezar</p>
-                </li>
-                <li class="bt">
-                    <a href="registro" class="btn">Registro</a>
-                    <p>Si no tienes una cuenta, registrate</p>
-                </li>
-            {% endif %}
+        <div class="cont">
+            <h1>Bienvenido a "Lexi"</h1>
+            <h3>¡Mejora tu ortografía jugando! Lexi te ayudará a aprender de manera divertida.</h3>
+            <div class="images">
+                <img src="static/img/juega.png" class="img">
+                <img src="static/img/aprende.png" class="img">
+                <img src="static/img/desafiate.png" class="img">
+            </div> 
+            
+            <ul class="btns">
+                {% if user.is_authenticated %}
+                    <li class="bt">
+                        <a href="{% url 'logout' %}" class="btn">Cerrar Sesión ({{ user.username }})</a> 
+                        <p>Presiona para cerrar tu sesión actual.</p>
+                    </li>
+                    <li class="bt">
+                        <a href="juego" class="btn">Jugar</a> 
+                        <p>Presiona para empezar</p>
+                    </li>
+                {% else %}
+                    <li class="bt">
+                        <a href="login" class="btn">Inicio sesión</a> 
+                        <p>Si ya tienes una cuenta, inicia sesión</p>
+                    </li>
+                    <li class="bt">
+                        <a href="juego" class="btn">Jugar</a> 
+                        <p>Presiona para empezar</p>
+                    </li>
+                    <li class="bt">
+                        <a href="registro" class="btn">Registro</a>
+                        <p>Si no tienes una cuenta, registrate</p>
+                    </li>
+                {% endif %}
 
-        </ul>
-    </div>
-   <img src="static/logo.png" class="logo"> 
-</body>
+            </ul>
+        </div>
+    </body>
 </html>

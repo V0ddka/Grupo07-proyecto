@@ -117,7 +117,7 @@ USE_TZ = True
 
 #esto es para poder manejar el frontend
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (os.path.join(BASE_DIR,"templates/static"), )
+STATICFILES_DIRS = (os.path.join(BASE_DIR,"static"), )
 LOGIN_URL = '/login/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

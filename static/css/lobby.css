@@ -1,0 +1,42 @@
+/*content box*/
+.container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    margin-top: 6rem;
+}
+h3{
+    padding: 1rem;
+    text-align: center;
+}
+h1{
+    text-align: center;
+    padding: 1rem;
+}
+/*button box*/
+.select{
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    gap: 1rem; 
+    margin: 1rem auto; 
+    width: 90%; 
+}
+/*button*/
+.type{
+    background: gray;
+    border-radius: 1rem;
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    text-decoration: none;
+    gap: 1rem;
+    
+}
+img{
+    width: 10rem;
+    height: auto;
+}
