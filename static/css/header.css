@@ -40,6 +40,14 @@ header{
     border: 2px solid green;
 }
 .right img{
-    width: 3rem;
+    width: 2rem;
     margin: 0.5rem;
+}
+.openDialog{
+    all: unset;
+    cursor: pointer;
+}
+.profile{
+    width: 3rem;
+    border-radius: 50%;
 }

@@ -11,21 +11,28 @@
     <body>
         <header>
             <div class="left">
-                <img src="static/img/logo.png" class="logo">
+                <img src="{% static 'img/logo.png' %}" class="logo">
                 <span class="name">Lexi</span>
             </div>
   
             <div class="right">
-                <a href="{% url 'home' %}">
-                    <img src="static/img/aprende.png">
+                <a href="{% url 'home' %}"><!--Que mande al lobby-->
+                    <img src="{% static 'img/home-icon.jpg' %}">
                 </a>
-
+                <!--Boton ayuda-->
+                <button commandfor="myDialog" command="show-modal" class="openDialog">
+                    <img src="{% static 'img/help.png' %}">
+                </button>
+                <dialog id="myDialog">
+                    <h2>Primeros pasos</h2>
+                    <p>Si quieres aprender, presiona leer apuntes, si quieres blablabalballalb</p>
+                    <form method="dialog">
+                        <button>cerrar</button>
+                    </form>
+                </dialog>
+                <!--Boton que mande a perfil cuenta-->
                 <a href="#">
-                    <img src="static/img/images.jpeg">
-                </a>
-
-                <a href="#">
-                    <img src="static/img/images.jpeg">
+                    <img class="profile" src="{% static 'img/kitty.jpg' %}">
                 </a>
 
             </div>
