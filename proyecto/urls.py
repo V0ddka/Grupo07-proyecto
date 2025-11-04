@@ -28,4 +28,5 @@ urlpatterns = [
     path('juego/', views.juego_ortografia, name='juego'),
     
     path('lobby/', views.lobby, name='lobby'),
+    path('account/', views.account, name='account'),
 ]

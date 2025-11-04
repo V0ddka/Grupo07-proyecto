@@ -16,7 +16,7 @@
             </div>
   
             <div class="right">
-                <a href="{% url 'home' %}"><!--Que mande al lobby-->
+                <a href="{% url 'lobby' %}"><!--Que mande al lobby-->
                     <img src="{% static 'img/home-icon.jpg' %}">
                 </a>
                 <!--Boton ayuda-->
@@ -31,7 +31,7 @@
                     </form>
                 </dialog>
                 <!--Boton que mande a perfil cuenta-->
-                <a href="#">
+                <a href="{% url 'account' %}">
                     <img class="profile" src="{% static 'img/kitty.jpg' %}">
                 </a>
 

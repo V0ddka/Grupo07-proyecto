@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css%}
+    <link rel="stylesheet" href="{% static 'css/lobby.css' %}">
+{% endblock %}
+{% block content%}
+    <div class="container">
+        <h1>Cuenta</h1>
+        <img src="static/img/descarga.jpeg"> 
+        <h3>Nombre usuario</h3>
+        <div class="options">
+            <h3> Ajustes cuenta</h3>
+            <ul>
+                <li class="button">
+                    Cambiar foto
+                </li>
+                <li class="button">
+                     Cambiar nombre
+                </li>
+                <li class="button">
+                    Cambiar contraseña
+                </li>
+                <li class="button">
+                    Eliminar cuenta
+                </li>
+                <li class="button">
+                    <a href="{% url 'logout' %}" class="btn">Cerrar Sesión ({{ user.username }})</a> 
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}

@@ -239,6 +239,9 @@ def logout_view(request):
 def lobby(request):
     return render(request,'lobby.html')
 
+def account(request):
+    return render(request,'account.html')
+
 # mi_proyecto/views.py
 
 #from django.shortcuts import render
