@@ -10,13 +10,13 @@ body{
 }
 /*header*/
 header{
-    background: rgb(180, 171, 171);
+    background:  rgb(26, 94, 76);
     z-index: 200;
     width: 100%;
     display: flex;
     justify-content: space-between;
     padding: 0.45rem 2rem 0.45rem 1.27rem;
-    border-bottom: 1px solid red;
+    border-bottom: 2px solid rgb(7, 39, 31);
     position: fixed;
     top: 0;
     left: 0;
@@ -50,4 +50,7 @@ header{
 .profile{
     width: 3rem;
     border-radius: 50%;
+}
+.name{
+    color: white;
 }

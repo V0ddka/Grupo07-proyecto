@@ -3,11 +3,11 @@ body{
 }
 .cont{
     display: flex;
+    width: 100%;
     justify-content: center;
     flex-direction: column;
     position: relative;
-    margin-top: 6rem;
-    border: 2px solid red;
+    margin-top: 5rem;;
 }
 h1{
     color: white;
@@ -19,7 +19,7 @@ h3{
     color: white;
     font-size: 30px;
     text-align: center;
-    padding: 1rem;
+    padding: 2rem;
 }
 p{
     color: white;
@@ -28,7 +28,7 @@ p{
 .btn{
     text-decoration: none;
     padding: 1.2rem 3rem;
-    background-color: rgb(30, 69, 55);
+    background-color:  rgb(26, 94, 76);
     border-radius: 25px;
     color: white;
     transition: all 0.3s;
@@ -56,4 +56,11 @@ p{
     border-radius: 20px;
     width: 200px;
     height: auto;
+}
+.block{
+    background-color: rgb(33, 73, 62);
+    border-radius: 2rem;
+    width: 70%;
+    margin:auto;
+    margin-top: 2rem;
 }
