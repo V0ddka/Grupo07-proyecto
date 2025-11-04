@@ -26,6 +26,6 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name="logout"),
     path('juego/', views.juego_ortografia, name='juego'),
-    path('cuentas/', include('cuentas.urls')),
+    
     path('lobby/', views.lobby, name='lobby'),
 ]
