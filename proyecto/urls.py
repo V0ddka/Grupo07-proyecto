@@ -29,4 +29,5 @@ urlpatterns = [
     
     path('lobby/', views.lobby, name='lobby'),
     path('account/', views.account, name='account'),
+    path('ppc/', views.palabra_por_contexto, name='palabra_por_contexto'),
 ]
