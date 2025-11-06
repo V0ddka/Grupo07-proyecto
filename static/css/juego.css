@@ -121,3 +121,58 @@ h2{
     place-items: center;
 
 }
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+
+.overlay {
+  position: fixed;
+  inset: 0; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.35);  
+  backdrop-filter: blur(6px);
+  z-index: 999;                     
+}
+
+
+.transparente {
+  background-color: #1E4537;  
+  color: white;
+  padding: 20px 30px;
+  border-radius: 15px;
+  border: 1px solid #fffff1;
+  max-width: 700px;
+  width: 90%;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  text-align: center;
+}
+
+#botoncerrar{
+
+  text-decoration: none;
+  padding: 1.2rem 3rem;
+  background-color: rgb(30, 69, 55);
+  border-radius: 25px;
+  color: white;
+  transition: all 0.3s;
+  border: none;
+  cursor: pointer;
+
+}
+
+#botoncerrar:hover {
+  background: #2a8a62;              
+  border-color: greenyellow;          
+  transform: scale(1.03);
+
+
+}
+
+.overlay.oculto{
+  display: none;
+}

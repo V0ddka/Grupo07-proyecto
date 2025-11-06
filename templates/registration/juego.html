@@ -33,14 +33,23 @@
   </div>
 
 {% if result %}
-  <div class ="rectangulo-verde2">
+  <div class ="overlay">
+   <div class ="transparente">
     <h2>Resultado</h2>
     <p>-{{ result.mensaje|escape }}</p>
     <h2>¿Cuál era la regla que le correspondía?</h2>
     <p>{{ result.correccion|escape }}</p>
-  </div>
-    
+
+    <button type ="button"
+    id ="botoncerrar">Cerrar</button>
+    </div>
+  </div>  
   {% endif %}
+  
+  <script src="{% static 'js/juego.js' %}">
+    
+  </script>
+ 
   
 </body>
 </html>
