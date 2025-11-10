@@ -1,10 +1,39 @@
 <!-- mi_template.html -->
+
+
+
+
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>Ejemplo</title>
+    <meta charset="UTF-8">
+    <title>Consulta a Gemini</title>
 </head>
 <body>
-    <h1>{{ response }}</h1>
+
+    <h1>Generador de Contexto con Gemini</h1>
+    
+    <form method="POST" action="{% url 'palabra_por_contexto' %}">
+        {% csrf_token %}
+        
+        <label for="input_usuario">Escribe tu Contexto/Tema:</label><br>
+        <input type="text" 
+               id="input_usuario" 
+               name="input_usuario" 
+               placeholder="Ej: La vida en Marte"
+               required><br><br>
+               
+        <button type="submit">Enviar a Gemini</button>
+    </form>
+
+    <hr>
+
+    {% if response %}
+        <h2>Resultado:</h2>
+        <p style="white-space: pre-wrap;">{{ response|linebreaks }}</p>
+    {% else %}
+        <p>Esperando tu consulta...</p>
+    {% endif %}
+
 </body>
 </html>

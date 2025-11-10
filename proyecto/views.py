@@ -250,10 +250,28 @@ def palabra_por_contexto(request):
         return HttpResponse("Error grave: GEMINI_API_KEY NO SE ENCONTRÓ en las variables de entorno.")
     
     client = genai.Client(api_key=api_key_value)
-    response = client.models.generate_content(
-        model='gemini-2.5-flash',
-        contents='why is the sky blue?',
-    )
+    respuesta_api = ""
+    prompt_completo = ""
+    ultima_consulta = None
+    if request.method == 'POST':
+        
+        input_usuario = request.POST.get('input_usuario', '')
+        
+        
+        texto_base = "Dime un chiste corto con la siguiente palabra: "
+        prompt_completo = texto_base + input_usuario
 
-    print(response.text) # output is often markdown
-    return render(request,'palabra_por_contexto.html', {'response': response.text})
+        try:
+            response = client.models.generate_content(
+                model='gemini-2.5-flash',
+                contents= prompt_completo,
+            )
+            respuesta_api = response.text
+        except Exception as e:
+            respuesta_api = f"Ocurrió un error al conectar con la API de Gemini: {e}"
+    
+    return render(request, 'palabra_por_contexto.html', {
+        'response': respuesta_api,
+        'ultima_consulta': ultima_consulta, 
+    })
+    
