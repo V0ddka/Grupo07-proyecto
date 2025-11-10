@@ -258,7 +258,7 @@ def palabra_por_contexto(request):
         input_usuario = request.POST.get('input_usuario', '')
         
         
-        texto_base = "Dime un chiste corto con la siguiente palabra: "
+        texto_base = "Genera 3 palabras segun el contexto personal a continuacion donde tu respuesta sera una lista con el siguiente formato: [[palabragenerada1, significadodepalabra1, una_sola_letra_donde_generalmente_se_equivocan_al_escribirla, el_indice_de_esa_palabra, la_regla_ortografica_que_era_la_que_le_correspondia_a_esa_letra],[lo mismo poero con otra palabera....]], contexto:"
         prompt_completo = texto_base + input_usuario
 
         try:
