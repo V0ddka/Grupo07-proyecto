@@ -25,7 +25,6 @@ header{
 }
 /*left section*/
 .left{
-    border: 2px solid green;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -39,11 +38,13 @@ header{
 }
 /*right section*/
 .right{
-    border: 2px solid green;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 .right img{
     width: 2rem;
-    margin: 0.5rem;
+    height: 2rem;
 }
 .openDialog{
     all: unset;
@@ -55,4 +56,15 @@ header{
 }
 .name{
     color: white;
+}
+.btn:hover{
+    background-color: greenyellow;
+    border-radius:5px;
+    transition: all 0.3s;
+}
+
+.openDialog:hover{
+    background-color: greenyellow;
+    border-radius:5px;
+    transition: all 0.3s;
 }

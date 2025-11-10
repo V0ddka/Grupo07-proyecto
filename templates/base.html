@@ -16,12 +16,12 @@
             </div>
   
             <div class="right">
-                <a href="{% url 'lobby' %}"><!--Que mande al lobby-->
-                    <img src="{% static 'img/home-icon.jpg' %}">
+                <a href="{% url 'lobby' %}" class="btn">
+                    <img src="{% static 'img/home_icon.svg' %}">
                 </a>
                 <!--Boton ayuda-->
                 <button commandfor="myDialog" command="show-modal" class="openDialog">
-                    <img src="{% static 'img/help.png' %}">
+                    <img src="{% static 'img/helpme.svg' %}">
                 </button>
                 <dialog id="myDialog">
                     <h2>Primeros pasos</h2>
@@ -31,7 +31,7 @@
                     </form>
                 </dialog>
                 <!--Boton que mande a perfil cuenta-->
-                <a href="{% url 'account' %}">
+                <a href="{% url 'account' %}" class="btn">
                     <img class="profile" src="{% static 'img/kitty.jpg' %}">
                 </a>
 
