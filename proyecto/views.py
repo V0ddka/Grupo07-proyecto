@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from google import genai
 
 import os
+import json
+from google.genai import types
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
@@ -252,26 +254,50 @@ def palabra_por_contexto(request):
     client = genai.Client(api_key=api_key_value)
     respuesta_api = ""
     prompt_completo = ""
+    lista_de_listas = []
     ultima_consulta = None
     if request.method == 'POST':
         
         input_usuario = request.POST.get('input_usuario', '')
         
         
-        texto_base = "Genera 3 palabras segun el contexto personal a continuacion donde tu respuesta sera una lista con el siguiente formato: [[palabragenerada1, significadodepalabra1, una_sola_letra_donde_generalmente_se_equivocan_al_escribirla, el_indice_de_esa_palabra, la_regla_ortografica_que_era_la_que_le_correspondia_a_esa_letra],[lo mismo poero con otra palabera....]], contexto:"
+        texto_base = (
+            "Genera 3 palabras según el contexto personal a continuación. "
+            "Tu respuesta DEBE ser un objeto JSON con la clave 'datos_palabras'. "
+            "El valor de 'datos_palabras' debe ser una lista de listas, "
+            "donde CADA lista interior tenga EXACTAMENTE 5 elementos en el siguiente orden: "
+            "[palabra_generada, significado_de_palabra, letra_equivocada_comun, indice_de_esa_letra, regla_ortografica_aplicable]. "
+            "Contexto:"
+        )   
         prompt_completo = texto_base + input_usuario
 
         try:
             response = client.models.generate_content(
                 model='gemini-2.5-flash',
                 contents= prompt_completo,
+                config=types.GenerateContentConfig(
+                    response_mime_type="application/json",
+                )
             )
-            respuesta_api = response.text
+            json_string= response.text
+            try:
+                datos_dict = json.loads(json_string)
+                # Intentamos extraer la lista de listas de la clave 'datos_palabras'
+                lista_de_listas = datos_dict.get('datos_palabras', []) 
+                
+                # Si el parseo es exitoso, puedes usar la lista_de_listas directamente en el template
+                respuesta_api = f"Datos estructurados recibidos (Formato Python):\n{lista_de_listas[1]}"
+                
+            except json.JSONDecodeError:
+                # Si Gemini no pudo generar un JSON válido
+                respuesta_api = f"Error: La API no devolvió un JSON válido. Respuesta cruda: {json_string}"
+                lista_de_listas = [] # Asegurar que esté vacía en caso de error
         except Exception as e:
             respuesta_api = f"Ocurrió un error al conectar con la API de Gemini: {e}"
     
     return render(request, 'palabra_por_contexto.html', {
         'response': respuesta_api,
         'ultima_consulta': ultima_consulta, 
+
     })
     
