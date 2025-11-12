@@ -3,9 +3,9 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>{% block title %}Titulo{% endblock %}</title>
+        <title>{% block title %}Titulo{% endblock %}</title><!--Cambiar titulo pag-->
         <link rel="stylesheet" href="{% static 'css/header.css' %}">
-        {% block extra_css %}
+        {% block extra_css %}<!--Agregar más estilos-->
         {% endblock %}
     </head>
     <body>
@@ -22,6 +22,10 @@
                     <img src="{% static 'img/home_icon.svg' %}">
                 </a>
                 {% endblock %}
+                
+                {% block extra %}<!--Bloque por si quieren agregar algo al header-->
+                {% endblock %}
+
                 <!--Boton ayuda-->
                 <button id="btn-abrir-modal">
                     <img src="{% static 'img/helpme.svg' %}">
@@ -38,14 +42,16 @@
         <!--Pestaña ayuda-->
         <div class="modal-container" id="modal-container">
             <div class="modal">
+                {% block modal %}<!--Por si quieren cambiar cont modal ayuda-->
                 <h2>¡Bienvenido!</h2>
                 <p>Esta debe ser tu primera vez aqui ¡Dejanos guiarte por la pagina!</p>
+                {% endblock %}
                 <button id="btn-cerrar-modal">Cerrar</button>
             </div>
         </div>
 
         <main>
-            {% block content %}
+            {% block content %}<!--Contenido pag-->
             {% endblock %}
         </main>
         <script src="{% static 'js/modal.js' %}"></script>
