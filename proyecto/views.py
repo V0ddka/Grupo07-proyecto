@@ -194,6 +194,10 @@ def juego_ortografia(request):
 
     return render(request, 'registration/juego.html', {'result': result, 'texto': texto, "part1": part1,"part2": part2,'mi_palabra': palabra_a_mostrar, 'significado': significado})
 
+def juego_final(request):
+
+    hola = 0
+
 def home (request):
     return render(request,'home.html')
 
@@ -244,7 +248,8 @@ def lobby(request):
 
 def account(request):
     return render(request,'account.html')
-
+SESSION_KEY_INPUT = 'ultima_input_usuario'
+SESSION_KEY_LISTA = 'ultima_lista_palabras'
 def palabra_por_contexto(request):
     api_key_value = os.getenv('GEMINI_APY_KEY')
     if not api_key_value:
@@ -255,11 +260,14 @@ def palabra_por_contexto(request):
     respuesta_api = ""
     prompt_completo = ""
     lista_de_listas = []
+    input_usuario =''
     ultima_consulta = None
     if request.method == 'POST':
         
         input_usuario = request.POST.get('input_usuario', '')
-        
+        if SESSION_KEY_INPUT not in request.session:
+            request.session[SESSION_KEY_INPUT] = lista_de_listas
+        input_u = request.session[SESSION_KEY_INPUT]
         
         texto_base = (
             "Genera 3 palabras según el contexto personal a continuación. "
@@ -282,16 +290,17 @@ def palabra_por_contexto(request):
             json_string= response.text
             try:
                 datos_dict = json.loads(json_string)
-                # Intentamos extraer la lista de listas de la clave 'datos_palabras'
+              
                 lista_de_listas = datos_dict.get('datos_palabras', []) 
-                
-                # Si el parseo es exitoso, puedes usar la lista_de_listas directamente en el template
+                if SESSION_KEY_LISTA not in request.session:
+                    request.session[SESSION_KEY_LISTA] = lista_de_listas
+                palabras_usuario = request.session[SESSION_KEY_LISTA]
                 respuesta_api = f"Datos estructurados recibidos (Formato Python):\n{lista_de_listas[1]}"
-                
+                return redirect('prueba')
             except json.JSONDecodeError:
-                # Si Gemini no pudo generar un JSON válido
+                
                 respuesta_api = f"Error: La API no devolvió un JSON válido. Respuesta cruda: {json_string}"
-                lista_de_listas = [] # Asegurar que esté vacía en caso de error
+                lista_de_listas = [] 
         except Exception as e:
             respuesta_api = f"Ocurrió un error al conectar con la API de Gemini: {e}"
     
@@ -300,4 +309,12 @@ def palabra_por_contexto(request):
         'ultima_consulta': ultima_consulta, 
 
     })
-    
+
+def prueba (request):
+    #hay que poner la url jijijij
+    palabra = request.session.pop(SESSION_KEY_LISTA, None)
+    return render(request, 'prueba.html', {
+        'response': palabra
+
+    })
+
