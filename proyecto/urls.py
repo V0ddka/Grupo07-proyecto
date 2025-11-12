@@ -25,8 +25,8 @@ urlpatterns = [
     path('registro/', views.registro_usuario, name='registro'),
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name="logout"),
-    path('juego/', views.juego_ortografia, name='juego'),
-    
+    path('juego/', views.juego_final, name='juego'),
+    #path('juego_final/', views. , name='juego_final'),
     path('lobby/', views.lobby, name='lobby'),
     path('account/', views.account, name='account'),
     path('ppc/', views.palabra_por_contexto, name='palabra_por_contexto'),

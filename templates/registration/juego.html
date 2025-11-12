@@ -43,7 +43,16 @@
     </div>
   </div>  
   {% endif %}
-  
+  {% if pal_acabadas %}
+  <div class ="overlay">
+   <div class ="transparente">
+    <h2 class="Signi">Se acabo esta ronda de palabras, ¿Quieres continuar con este tema o quieres empezar con otro?</h2>
+    <div class= "botones">
+    <button type="submit" name="accion" value="continuar" >si! quiero continuar con este tema!</button>
+    <button type="submit" name="accion" value="cambiar" >no! quiero cambiar el tema</button>
+    </div>
+  </div>  
+  {% endif %}
   <script src="{% static 'js/juego.js' %}">
     
   </script>

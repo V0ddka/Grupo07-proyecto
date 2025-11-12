@@ -296,7 +296,7 @@ def palabra_por_contexto(request):
                     request.session[SESSION_KEY_LISTA] = lista_de_listas
                 palabras_usuario = request.session[SESSION_KEY_LISTA]
                 respuesta_api = f"Datos estructurados recibidos (Formato Python):\n{lista_de_listas[1]}"
-                return redirect('prueba')
+                return redirect('juego')
             except json.JSONDecodeError:
                 
                 respuesta_api = f"Error: La API no devolvió un JSON válido. Respuesta cruda: {json_string}"
@@ -310,11 +310,70 @@ def palabra_por_contexto(request):
 
     })
 
-def prueba (request):
+def juego_final(request):
     #hay que poner la url jijijij
-    palabra = request.session.pop(SESSION_KEY_LISTA, None)
+    lista_palabras = request.session.get(SESSION_KEY_LISTA, None)
+    #[palabra_generada, significado_de_palabra, letra_equivocada_comun, 
+    # indice_de_esa_letra, regla_ortografica_aplicable]. "
+
+    i = request.session.get('juego_indice', 0)
+    palabra_c = lista_palabras[i][0]
+    significado = lista_palabras[i][1]
+    #letra_e = lista_palabras[i][2]
+    ind = lista_palabras[i][3]
+    letra_e = palabra_c[ind]
+    regla = lista_palabras[i][4]
+    palabra_s = list(palabra_c)
+    palabra_s[ind]= "_"
+    pal_temp = "".join(palabra_s)
+    temp = pal_temp.split("_")
+    parte1 = temp[0]
+    parte2 = temp[1]
+    palabras_acabadas = False
+    result = None
+    texto = ''
+    cant_palabras = len(lista_palabras)
+    if i >= cant_palabras:
+        request.session.pop(SESSION_KEY_LISTA, None) 
+        request.session.pop('juego_indice', None)
+    if request.method == 'POST':
+        accion_solicitada = request.POST.get('accion')
+        if accion_solicitada == 'saltar':
+            
+            request.session['mensaje_resultado'] = '¡Palabra saltada! Cargando una nueva...'
+            i += 1
+            request.session['juego_indice'] = i
+            if i == cant_palabras:
+                palabras_acabadas = True
+                if accion_solicitada == "continuar":
+                    return redirect("lobby")
+                elif accion_solicitada == "cambiar":
+                    return redirect("palabra_por_contexto")
+            else:
+                return redirect('juego')
+        
+        elif accion_solicitada == 'validar':
+            texto = request.POST.get('texto', '')
+            if letra_e and texto.lower() == letra_e.lower():
+                request.session['mensaje_resultado'] = f"¡Correcto! La palabra era {palabra_c}."
+                
+            else:
+                request.session['mensaje_resultado'] = f"Incorrecto ¡Inténtalo de nuevo!"
+            mensaje = request.session.pop('mensaje_resultado', None)
+            quepaso = None
+            if mensaje:
+                quepaso = {'mensaje': mensaje}
+                texto = '' 
+            result = {
+                'mensaje': quepaso['mensaje'] if quepaso else '',
+                'palabraBuena': palabra_c,
+                'correccion': regla,
+            }
+
+    return render(request, 'registration/juego.html', {'result': result, 'texto': texto, "part1": parte1,"part2": parte2,'mi_palabra': pal_temp, 'significado': significado, "pal_acabadas": palabras_acabadas})
+
     return render(request, 'prueba.html', {
-        'response': palabra
+        'response': lista_palabras
 
     })
 
