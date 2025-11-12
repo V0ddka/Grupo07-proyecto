@@ -1,0 +1,39 @@
+.container{
+    margin-top: 7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.options{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+ul{
+    list-style: none;
+}
+.info{
+    display: flex;
+    margin: 2rem;
+    align-items: center;
+    justify-content: center;
+    gap: 5rem;
+}
+.photo{
+    float: left;
+    width: 8rem;
+}
+.button{
+    background-color: rgb(33, 73, 62);
+    border-radius: 15px;
+    border: 2px solid white;
+    color: white;
+    padding: 1rem;
+    margin: 1rem;
+}
+.btn{
+    text-decoration: none;
+    color: white;
+}

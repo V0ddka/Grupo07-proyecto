@@ -4,7 +4,7 @@
     justify-content: center;
     flex-direction: column;
     position: relative;
-    margin-top: 6rem;
+    margin-top: 8rem;
 }
 h3{
     padding: 1rem;
@@ -20,7 +20,8 @@ h1{
     align-items: center; 
     justify-content: center;
     gap: 3rem; 
-    margin: 1rem auto; 
+    margin: 1rem auto;
+    margin-top: 3rem; 
     width: 90%; 
 }
 /*button*/
