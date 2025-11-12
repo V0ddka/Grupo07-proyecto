@@ -1,40 +1,33 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <title>Lexi</title>
-        <link rel="stylesheet" href="{% static 'css/header.css' %}">
-        <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    </head>
-    <body>
-        <header>
-            <div class="left">
-                <img src="static/img/logo.png" class="logo">
-                <span class="name">Lexi</span>
-            </div>
-        </header>
-        
-        <div class="cont">
-            <h1>Bienvenido a "Lexi"</h1>
-            <div class="block">
-                <h3>¡Mejora tu ortografía jugando! Lexi te ayudará a aprender de manera divertida. Inicia sesión o registrate para comenzar</h3>
-                <div class="images">
-                    <img src="static/img/lapiz.png" class="img">
-                </div> 
+{% block extra_css%}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+{% block title %}Lexi{% endblock %}
+{% block page %}
+{% endblock %}
+{% block acc%}
+{% endblock %}
+{% block content %}
+    <div class="cont">
+        <h1>Bienvenido a "Lexi"</h1>
+        <div class="block">
+            <h3>¡Mejora tu ortografía jugando! Lexi te ayudará a aprender de manera divertida. Inicia sesión o registrate para comenzar</h3>
+            <div class="images">
+                <img src="static/img/lapiz.png" class="img">
+            </div> 
                 
-                <ul class="btns">
-                    <li class="bt">
-                        <a href="login" class="btn">Inicio sesión</a> 
-                        <p>Si ya tienes una cuenta, inicia sesión</p>
-                    </li>
+            <ul class="btns">
+                <li>
+                    <a href="login" class="bt">Inicio sesión</a> 
+                    <p>Si ya tienes una cuenta, inicia sesión</p>
+                </li>
 
-                    <li class="bt">
-                        <a href="registro" class="btn">Registro</a>
-                        <p>Si no tienes una cuenta, registrate</p>
-                    </li>
-                </ul>
-            </div>
+                <li>
+                    <a href="registro" class="bt">Registro</a>
+                    <p>Si no tienes una cuenta, registrate</p>
+                </li>
+            </ul>
         </div>
-    </body>
-</html>
+    </div>
+{% endblock %}

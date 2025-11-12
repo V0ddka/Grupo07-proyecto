@@ -16,22 +16,23 @@
             </div>
   
             <div class="right">
+                {% block page %}
                 <!--Boton que manda a pagina principal-->
                 <a href="{% url 'lobby' %}" class="btn">
                     <img src="{% static 'img/home_icon.svg' %}">
                 </a>
-                {% block help%}
+                {% endblock %}
                 <!--Boton ayuda-->
                 <button id="btn-abrir-modal">
                     <img src="{% static 'img/helpme.svg' %}">
                 </button>
-                {% endblock %}
                 
+                {% block acc %}
                 <!--Boton que manda a perfil cuenta-->
                 <a href="{% url 'account' %}" class="btn">
                     <img class="profile" src="{% static 'img/kitty.jpg' %}">
                 </a>
-
+                {% endblock %}
             </div>
         </header>
         <!--Pestaña ayuda-->
