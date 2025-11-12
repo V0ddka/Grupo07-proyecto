@@ -22,7 +22,12 @@
                name="input_usuario" 
                placeholder="Ej: La vida en Marte"
                required><br><br>
-               
+        <select name="num_palabras" required>
+            <option value="" disabled selected>Selecciona la cantidad de palabras</option>
+            <option value="5">5 palabras</option>
+            <option value="10">10 palabras</option>
+            <option value="15">15 palabras</option>
+        </select><br><br>
         <button type="submit">Enviar a Gemini</button>
     </form>
 
