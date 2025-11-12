@@ -46,10 +46,7 @@ header{
     width: 2rem;
     height: 2rem;
 }
-.openDialog{
-    all: unset;
-    cursor: pointer;
-}
+
 .profile{
     width: 3rem;
     border-radius: 50%;
@@ -62,9 +59,54 @@ header{
     border-radius:5px;
     transition: all 0.3s;
 }
+.modal-container{
+    background: rgba(0, 0, 0, 0.35);  
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    opacity: 0;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: 250;
+}
+.modal-container.show{
+    opacity: 1;
+    pointer-events: auto;
+}
+.modal{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
 
-.openDialog:hover{
+    background-color: #1E4537;
+    border-radius: 15px;
+    border: 1px solid #fffff1;
+    z-index: 300;
+    color: white;           
+    width: 600px;
+    max-width: 100%;
+    padding: 30px 50px;
+    
+    word-break: break-all; /*para que el texto largo se ajuste*/
+}
+
+#btn-abrir-modal{
+    all: unset;
+    cursor: pointer;
+}
+
+#btn-abrir-modal:hover{
     background-color: greenyellow;
-    border-radius:5px;
+    border-radius: 5px;
     transition: all 0.3s;
 }
+
+
+

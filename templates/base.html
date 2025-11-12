@@ -16,32 +16,38 @@
             </div>
   
             <div class="right">
+                <!--Boton que manda a pagina principal-->
                 <a href="{% url 'lobby' %}" class="btn">
                     <img src="{% static 'img/home_icon.svg' %}">
                 </a>
+                {% block help%}
                 <!--Boton ayuda-->
-                <button commandfor="myDialog" command="show-modal" class="openDialog">
+                <button id="btn-abrir-modal">
                     <img src="{% static 'img/helpme.svg' %}">
                 </button>
-                <dialog id="myDialog">
-                    <h2>Primeros pasos</h2>
-                    <p>Si quieres aprender, presiona leer apuntes, si quieres blablabalballalb</p>
-                    <form method="dialog">
-                        <button>cerrar</button>
-                    </form>
-                </dialog>
-                <!--Boton que mande a perfil cuenta-->
+                {% endblock %}
+                
+                <!--Boton que manda a perfil cuenta-->
                 <a href="{% url 'account' %}" class="btn">
                     <img class="profile" src="{% static 'img/kitty.jpg' %}">
                 </a>
 
             </div>
         </header>
+        <!--Pestaña ayuda-->
+        <div class="modal-container" id="modal-container">
+            <div class="modal">
+                <h2>¡Bienvenido!</h2>
+                <p>Esta debe ser tu primera vez aqui ¡Dejanos guiarte por la pagina!</p>
+                <button id="btn-cerrar-modal">Cerrar</button>
+            </div>
+        </div>
+
         <main>
             {% block content %}
             {% endblock %}
         </main>
-        
+        <script src="{% static 'js/modal.js' %}"></script>
     </body>
 
 </html>

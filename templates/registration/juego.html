@@ -1,18 +1,16 @@
+{% extends "base.html" %}
 {% load static %}
-<!doctype html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>-----Lexi-----</title>
+{% block title %}Corrige la palabra{% endblock %}
+{% block extra_css%}
   <link rel="stylesheet" href="{% static 'css/juego.css' %}">
-</head>
-<body>
-  <h1>Juego "Corrige la palabra":</h1>
+{% endblock %}
+{% block content%}
+  <h1 id="Title">Juego "Corrige la palabra":</h1>
 
     <form method="post">
       {% csrf_token %}
       <div class ="rectangulo-verde1">
-          <p> Escribe la letra que crees que corresponda aquí:</p>
+          <p class="Text"> Escribe la letra que crees que corresponda aquí:</p>
           <div class="correccion-linea">
           <span>{{ part1 }}</span>
           <textarea rows="1" cols="1" name="texto" >{{ texto }}</textarea>
@@ -28,17 +26,17 @@
     </form>
   <div class ="rectangulo-verde2">
     <div class="descripcion">
-    <h2>{{significado}}</h2>
+    <h2 class="Signi">{{significado}}</h2>
       </div>
   </div>
 
-{% if result %}
+  {% if result %}
   <div class ="overlay">
    <div class ="transparente">
-    <h2>Resultado</h2>
-    <p>-{{ result.mensaje|escape }}</p>
-    <h2>¿Cuál era la regla que le correspondía?</h2>
-    <p>{{ result.correccion|escape }}</p>
+    <h2 class="Signi">Resultado</h2>
+    <p class="Text">-{{ result.mensaje|escape }}</p>
+    <h2 class="Signi">¿Cuál era la regla que le correspondía?</h2>
+    <p class="Text">{{ result.correccion|escape }}</p>
 
     <button type ="button"
     id ="botoncerrar">Cerrar</button>
@@ -49,7 +47,4 @@
   <script src="{% static 'js/juego.js' %}">
     
   </script>
- 
-  
-</body>
-</html>
+ {% endblock %}

@@ -1,15 +1,30 @@
-body{
-    background: rgb(26, 94, 76);
-}
-
-h1{
+/* Textos*/
+#Title{
+  margin-top: 10rem;/* Ajusta el margen superior para evitar solapamiento con el header */
     color: white;
     font-size: 40px;
     display: grid;
     place-items: center;
 }
 
+.Signi{
+    color: white;
+    font-size: 20px;
+    display: grid;
+    place-items: center;
+
+}
+
+.Text{
+    color: white;
+    text-align: center;
+    font-size: 20px;
+}
+
+/*Contenedores de texto*/
 .rectangulo-verde1{
+  display: flex;
+  flex-direction: column;
   text-align: center;
   justify-content: center;
   gap: 5px;
@@ -21,15 +36,20 @@ h1{
   margin: 30px auto;            
   border-radius: 25px;         
   border: 1px solid #ffffff;
-  
-  
-}
-p{
-    color: white;
-    text-align: center;
-    font-size: 20px;
 }
 
+.rectangulo-verde2{                  
+  max-width: 700px;             
+  height: auto;  
+  padding: 10px;
+  text-align: center; 
+
+  background-color: #1E4537;    
+  
+  margin: 30px auto;            
+  border-radius: 15px;         
+  border: 1px solid #fffff1;
+}
 
 
 textarea{
@@ -38,6 +58,7 @@ textarea{
     place-items: center;
     background-color: rgb(26, 100, 76);
     outline: none;
+    overflow: hidden;/* Evita barras de desplazamiento */
     resize: none;
     border: 2px solid #999;
     color: white; /* Para que el texto de los span se vea */
@@ -46,6 +67,7 @@ textarea{
     
 
 }
+
 .correccion-linea {
     display: flex; 
     justify-content: center; 
@@ -58,7 +80,6 @@ textarea{
     font-size: 1.8em;
 }
 
-
 .botones{
   border: 3px;
   display: flex;
@@ -68,7 +89,6 @@ textarea{
 
   
 }
-
 
 .botones button{
   padding: 1.2rem 2rem;
@@ -88,46 +108,6 @@ textarea{
 }
 
 
-button{
-  text-decoration: none;
-  padding: 1.2rem 3rem;
-  background-color: rgb(30, 69, 55);
-  border-radius: 25px;
-  color: white;
-  transition: all 0.3s;
-  border: none;
-  cursor: pointer;
-}
-
-.rectangulo-verde2{                  
-  max-width: 700px;             
-  height: auto;  
-  padding: 10px; 
-
-  background-color: #1E4537;    
-  
-  margin: 30px auto;            
-  border-radius: 15px;         
-  border: 1px solid #fffff1;
-
-
-
-}
-
-h2{
-    color: white;
-    font-size: 20px;
-    display: grid;
-    place-items: center;
-
-}
-
-html, body {
-  height: 100%;
-  margin: 0;
-}
-
-
 .overlay {
   position: fixed;
   inset: 0; 
@@ -138,7 +118,6 @@ html, body {
   backdrop-filter: blur(6px);
   z-index: 999;                     
 }
-
 
 .transparente {
   background-color: #1E4537;  
