@@ -265,12 +265,13 @@ def palabra_por_contexto(request):
     if request.method == 'POST':
         
         input_usuario = request.POST.get('input_usuario', '')
+        num_palabras = request.POST.get('num_palabras', '')
         if SESSION_KEY_INPUT not in request.session:
             request.session[SESSION_KEY_INPUT] = lista_de_listas
         input_u = request.session[SESSION_KEY_INPUT]
         
         texto_base = (
-            "Genera 3 palabras según el contexto personal a continuación. "
+            "Genera "+str(num_palabras)+ "palabras según el contexto personal a continuación. "
             "Tu respuesta DEBE ser un objeto JSON con la clave 'datos_palabras'. "
             "El valor de 'datos_palabras' debe ser una lista de listas, "
             "donde CADA lista interior tenga EXACTAMENTE 5 elementos en el siguiente orden: "
@@ -315,8 +316,12 @@ def juego_final(request):
     lista_palabras = request.session.get(SESSION_KEY_LISTA, None)
     #[palabra_generada, significado_de_palabra, letra_equivocada_comun, 
     # indice_de_esa_letra, regla_ortografica_aplicable]. "
-
+    
+    cant_palabras = len(lista_palabras)
     i = request.session.get('juego_indice', 0)
+    if i >= cant_palabras:
+        i = 0
+        request.session['juego_indice'] = i
     palabra_c = lista_palabras[i][0]
     significado = lista_palabras[i][1]
     #letra_e = lista_palabras[i][2]
@@ -332,7 +337,7 @@ def juego_final(request):
     palabras_acabadas = False
     result = None
     texto = ''
-    cant_palabras = len(lista_palabras)
+
     if i >= cant_palabras:
         request.session.pop(SESSION_KEY_LISTA, None) 
         request.session.pop('juego_indice', None)
