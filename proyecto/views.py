@@ -316,12 +316,21 @@ def juego_final(request):
     lista_palabras = request.session.get(SESSION_KEY_LISTA, None)
     #[palabra_generada, significado_de_palabra, letra_equivocada_comun, 
     # indice_de_esa_letra, regla_ortografica_aplicable]. "
+    if not lista_palabras:
+        return redirect('palabra_por_contexto')
+    
     
     cant_palabras = len(lista_palabras)
+    palabras_acabadas = False
+    result = None
+    texto = ''
     i = request.session.get('juego_indice', 0)
-    if i >= cant_palabras:
-        i = 0
-        request.session['juego_indice'] = i
+    if  i>= cant_palabras :
+        palabras_acabadas = True
+        request.session.pop(SESSION_KEY_LISTA, None) 
+        request.session.pop('juego_indice', None)
+        return render(request, 'registration/juego.html', {'pal_acabadas': palabras_acabadas})
+    
     palabra_c = lista_palabras[i][0]
     significado = lista_palabras[i][1]
     #letra_e = lista_palabras[i][2]
@@ -333,29 +342,21 @@ def juego_final(request):
     pal_temp = "".join(palabra_s)
     temp = pal_temp.split("_")
     parte1 = temp[0]
-    parte2 = temp[1]
-    palabras_acabadas = False
-    result = None
-    texto = ''
+    parte2 = temp[1]    
+    
 
-    if i >= cant_palabras:
-        request.session.pop(SESSION_KEY_LISTA, None) 
-        request.session.pop('juego_indice', None)
+    #if i >= cant_palabras:
+    #    request.session.pop(SESSION_KEY_LISTA, None) 
+    #    request.session.pop('juego_indice', None)
     if request.method == 'POST':
         accion_solicitada = request.POST.get('accion')
         if accion_solicitada == 'saltar':
             
-            request.session['mensaje_resultado'] = '¡Palabra saltada! Cargando una nueva...'
             i += 1
             request.session['juego_indice'] = i
-            if i == cant_palabras:
-                palabras_acabadas = True
-                if accion_solicitada == "continuar":
-                    return redirect("lobby")
-                elif accion_solicitada == "cambiar":
-                    return redirect("palabra_por_contexto")
-            else:
-                return redirect('juego')
+            request.session['mensaje_resultado'] = '¡Palabra saltada! Cargando una nueva...'
+            
+            return redirect('juego')
         
         elif accion_solicitada == 'validar':
             texto = request.POST.get('texto', '')
@@ -374,7 +375,13 @@ def juego_final(request):
                 'palabraBuena': palabra_c,
                 'correccion': regla,
             }
-
+        elif palabras_acabadas == True:
+                
+            if accion_solicitada == "continuar":
+                return redirect("lobby")
+            elif accion_solicitada == "cambiar":
+                return redirect("palabra_por_contexto")
+            
     return render(request, 'registration/juego.html', {'result': result, 'texto': texto, "part1": parte1,"part2": parte2,'mi_palabra': pal_temp, 'significado': significado, "pal_acabadas": palabras_acabadas})
 
     return render(request, 'prueba.html', {
