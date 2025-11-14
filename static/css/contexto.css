@@ -1,0 +1,125 @@
+
+body {
+    background-color: rgb(26, 94, 76);
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+
+.cont {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    margin-top: 5rem;
+}
+
+.block {
+    background-color: rgb(33, 73, 62);
+    border-radius: 2rem;
+    width: 70%;
+    margin: auto;
+    margin-top: 2rem;
+    border: 2px solid white;
+    padding: 2rem 3rem;
+}
+
+
+h1 {
+    color: white;
+    font-size: 40px;
+    text-align: center;
+    padding: 1rem;
+    margin: 0;
+}
+
+h3 {
+    color: white;
+    font-size: 24px;
+    text-align: left;
+    padding: 1rem 0 0.5rem 0;
+    margin: 0;
+}
+
+
+p {
+    color: white;
+    font-size: 16px;
+}
+
+
+form {
+    margin-top: 1rem;
+}
+
+
+label {
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+
+input[type="text"],
+select {
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    border-radius: 10px;
+    border: 1px solid white;
+    background-color: rgb(26, 94, 76);
+    color: white;
+    font-size: 15px;
+    outline: none;
+}
+
+input::placeholder {
+    color: #d6f0e6;
+}
+
+
+.bt {
+    text-decoration: none;
+    padding: 1.2rem 3rem;
+    background-color: rgb(26, 94, 76);
+    border-radius: 25px;
+    color: white;
+    transition: all 0.3s;
+    display: inline-block;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.bt:hover {
+    background-color: greenyellow;
+    color: black;
+}
+
+hr {
+    margin: 1.5rem 0;
+    border: none;
+    border-top: 1px solid white;
+    opacity: 0.4;
+}
+
+
+p[style*="white-space: pre-wrap"] {
+    margin-top: 0.5rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    background-color: rgba(0, 0, 0, 0.25);
+    white-space: pre-wrap !important;
+}
+
+
+@media (max-width: 768px) {
+    .block {
+        width: 90%;
+        padding: 1.5rem 1.8rem;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+}

@@ -1,44 +1,50 @@
-<!-- mi_template.html -->
 
-
-
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/contexto.css' %}">
     <title>Consulta a Gemini</title>
+    
 </head>
 <body>
+    <div class="cont">
+        <div class="block">
 
-    <h1>Generador de Contexto con Gemini</h1>
-    
-    <form method="POST" action="{% url 'palabra_por_contexto' %}">
-        {% csrf_token %}
-        
-        <label for="input_usuario">Escribe tu Contexto/Tema:</label><br>
-        <input type="text" 
-               id="input_usuario" 
-               name="input_usuario" 
-               placeholder="Ej: La vida en Marte"
-               required><br><br>
-        <select name="num_palabras" required>
-            <option value="" disabled selected>Selecciona la cantidad de palabras</option>
-            <option value="5">5 palabras</option>
-            <option value="10">10 palabras</option>
-            <option value="15">15 palabras</option>
-        </select><br><br>
-        <button type="submit">Enviar a Gemini</button>
-    </form>
+            <h1>Generador de Contexto con Gemini</h1>
+            
+            <form method="POST" action="{% url 'palabra_por_contexto' %}">
+                {% csrf_token %}
+                
+                <label for="input_usuario">Escribe tu Contexto/Tema:</label><br>
+                <input type="text" 
+                       id="input_usuario" 
+                       name="input_usuario" 
+                       placeholder="Ej: La vida en Marte"
+                       required><br><br>
 
-    <hr>
+                <select name="num_palabras" required>
+                    <option value="" disabled selected>Selecciona la cantidad de palabras</option>
+                    <option value="5">5 palabras</option>
+                    <option value="10">10 palabras</option>
+                    <option value="15">15 palabras</option>
+                </select><br><br>
 
-    {% if response %}
-        <h2>Resultado:</h2>
-        <p style="white-space: pre-wrap;">{{ response|linebreaks }}</p>
-    {% else %}
-        <p>Esperando tu consulta...</p>
-    {% endif %}
+                <button type="submit" class="bt">Enviar a Gemini</button>
+            </form>
 
+            <hr>
+
+            {% if response %}
+                <h3>Resultado:</h3>
+                <p style="white-space: pre-wrap;">{{ response|linebreaks }}</p>
+            {% else %}
+                <p>Esperando tu consulta...</p>
+            {% endif %}
+
+        </div>
+    </div>
 </body>
+
 </html>
