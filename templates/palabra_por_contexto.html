@@ -17,7 +17,7 @@
             <form method="POST" action="{% url 'palabra_por_contexto' %}">
                 {% csrf_token %}
                 
-                <label for="input_usuario">Escribe tu Contexto/Tema para que generemos palabras acorde a lo que necesitas o quieres aprender:</label><br>
+                <label for="input_usuario">Escribe tu Contexto/Tema para que generemos palabras acorde a lo que necesitas o quieres aprender:</label><br><br>
                 <input type="text" 
                        id="input_usuario" 
                        name="input_usuario" 

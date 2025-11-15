@@ -17,6 +17,7 @@ SESSION_KEY_INPUT = 'ultima_input_usuario'
 SESSION_KEY_LISTA = 'ultima_lista_palabras'
 FLAG = 'usar_denuevo'
 NUM_PAL = 'holis'
+NO = 'no'
 def sustituir_b_por_v(palabra_original: str, num_fijo:int) -> str:
     
     palabra = palabra_original.lower()
@@ -247,6 +248,7 @@ def lobby(request):
     request.session.pop(SESSION_KEY_LISTA, None)
     request.session.pop('juego_indice',None)
     request.session.pop(FLAG, False)
+    request.session.pop(NO, [])
     return render(request,'lobby.html')
 
 
@@ -266,12 +268,16 @@ def palabra_por_contexto(request):
     input_usuario =''
     ultima_consulta = None
     flag = request.session.get(FLAG)
+    historial = request.session.get(NO, [])
+    print(historial)
+    palabras_a_evitar = ", ".join(historial)
     print("se detecto-----------------------", flag)
     if flag == True:
         input_usu = request.session.get(SESSION_KEY_INPUT)
         NUM = request.session.get(NUM_PAL)
         texto_base = (
             "Genera exactamente "+str(NUM)+ "palabras según el contexto personal y/o solicitud a continuación. "
+            "***IMPORTANTE, no usar estas palabras:"+ palabras_a_evitar+"."
             "Tu respuesta DEBE ser un objeto JSON con la clave 'datos_palabras'. "
             "El valor de 'datos_palabras' debe ser una lista de listas, "
             "donde CADA lista interior tenga EXACTAMENTE 5 elementos en el siguiente orden: "
@@ -318,6 +324,7 @@ def palabra_por_contexto(request):
         
         texto_base = (
             "Genera exactamente "+str(num_palabras)+ "palabras según el contexto personal y/o solicitud a continuación. "
+            "***IMPORTANTE, no usar estas palabras:"+ palabras_a_evitar+"."  
             "Tu respuesta DEBE ser un objeto JSON con la clave 'datos_palabras'. "
             "El valor de 'datos_palabras' debe ser una lista de listas, "
             "donde CADA lista interior tenga EXACTAMENTE 5 elementos en el siguiente orden: "
@@ -362,6 +369,7 @@ def juego_final(request):
     lista_palabras = request.session.get(SESSION_KEY_LISTA, None)
     #[palabra_generada, significado_de_palabra, letra_equivocada_comun, 
     # indice_de_esa_letra, regla_ortografica_aplicable]. "
+    
     if not lista_palabras:
         return redirect('palabra_por_contexto')
     
@@ -392,13 +400,15 @@ def juego_final(request):
     else:
         palabra_c = significado = ind = letra_e = regla = palabra_s = pal_temp = temp = parte1 = parte2 = None
     
-
+    historial = request.session.get(NO, [])
     #if i >= cant_palabras:
     #    request.session.pop(SESSION_KEY_LISTA, None) 
     #    request.session.pop('juego_indice', None)
     if request.method == 'POST':
         accion_solicitada = request.POST.get('accion')
         if accion_solicitada == 'saltar':
+            historial.append(palabra_c)
+            request.session[NO]= historial
             
             i += 1
             request.session['juego_indice'] = i
@@ -423,6 +433,8 @@ def juego_final(request):
                 'palabraBuena': palabra_c,
                 'correccion': regla,
             }
+        elif accion_solicitada == "lobby":
+            return redirect('lobby')
         elif palabras_acabadas == True:
                 
             if accion_solicitada == "continuar":
