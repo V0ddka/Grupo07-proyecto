@@ -90,11 +90,8 @@ header{
     border: 1px solid #fffff1;
     z-index: 300;
     color: white;           
-    width: 600px;
-    max-width: 100%;
     padding: 30px 50px;
-    
-    word-break: break-all; /*para que el texto largo se ajuste*/
+    /*para que el texto largo se ajuste*/
 }
 
 #btn-abrir-modal{

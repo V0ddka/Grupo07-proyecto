@@ -25,11 +25,13 @@
                 
                 {% block extra %}<!--Bloque por si quieren agregar algo al header-->
                 {% endblock %}
-
+                
+                {% block help%}
                 <!--Boton ayuda-->
                 <button id="btn-abrir-modal">
                     <img src="{% static 'img/helpme.svg' %}">
                 </button>
+                {% endblock %}
                 
                 {% block acc %}
                 <!--Boton que manda a perfil cuenta-->
