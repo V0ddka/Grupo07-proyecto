@@ -271,11 +271,11 @@ def palabra_por_contexto(request):
         input_u = request.session[SESSION_KEY_INPUT]
         
         texto_base = (
-            "Genera "+str(num_palabras)+ "palabras según el contexto personal a continuación. "
+            "Genera exactamente "+str(num_palabras)+ "palabras según el contexto personal y/o solicitud a continuación. "
             "Tu respuesta DEBE ser un objeto JSON con la clave 'datos_palabras'. "
             "El valor de 'datos_palabras' debe ser una lista de listas, "
             "donde CADA lista interior tenga EXACTAMENTE 5 elementos en el siguiente orden: "
-            "[palabra_generada, significado_de_palabra, letra_equivocada_comun, indice_de_esa_letra, regla_ortografica_aplicable]. "
+            "[palabra_generada, significado_de_palabra, UNA_regla_ortografica_aplicable_a_esta_palabra, letra_equivocada_comun_relacionada_a_esta_regla_ortografica_en_esta_palabra(ej: si árbol lleva tilde por ser grave, quiero que me des la letra á, la letra tiene que ser la de la regla ortografica), indice_de_esa_letra]. "
             "Contexto:"
         )   
         prompt_completo = texto_base + input_usuario
@@ -334,9 +334,9 @@ def juego_final(request):
     palabra_c = lista_palabras[i][0]
     significado = lista_palabras[i][1]
     #letra_e = lista_palabras[i][2]
-    ind = lista_palabras[i][3]
+    ind = lista_palabras[i][4]
     letra_e = palabra_c[ind]
-    regla = lista_palabras[i][4]
+    regla = lista_palabras[i][2]
     palabra_s = list(palabra_c)
     palabra_s[ind]= "_"
     pal_temp = "".join(palabra_s)

@@ -5,23 +5,23 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{% static 'css/contexto.css' %}">
-    <title>Consulta a Gemini</title>
+    <title>Generador de palabras ---- Lexi ----</title>
     
 </head>
 <body>
     <div class="cont">
         <div class="block">
 
-            <h1>Generador de Contexto con Gemini</h1>
+            <h1>Generador de palabras</h1>
             
             <form method="POST" action="{% url 'palabra_por_contexto' %}">
                 {% csrf_token %}
                 
-                <label for="input_usuario">Escribe tu Contexto/Tema:</label><br>
+                <label for="input_usuario">Escribe tu Contexto/Tema para que generemos palabras acorde a lo que necesitas o quieres aprender:</label><br>
                 <input type="text" 
                        id="input_usuario" 
                        name="input_usuario" 
-                       placeholder="Ej: La vida en Marte"
+                       placeholder="Ej: 'No me manejo con las tildes', 'me gustaría aprender con palabras que usaría en ...':"
                        required><br><br>
 
                 <select name="num_palabras" required>
@@ -31,7 +31,7 @@
                     <option value="15">15 palabras</option>
                 </select><br><br>
 
-                <button type="submit" class="bt">Enviar a Gemini</button>
+                <button type="submit" class="bt">Enviar los datos para comenzar</button>
             </form>
 
             <hr>
@@ -40,7 +40,7 @@
                 <h3>Resultado:</h3>
                 <p style="white-space: pre-wrap;">{{ response|linebreaks }}</p>
             {% else %}
-                <p>Esperando tu consulta...</p>
+                <p>Esperando tu respuesta...</p>
             {% endif %}
 
         </div>
