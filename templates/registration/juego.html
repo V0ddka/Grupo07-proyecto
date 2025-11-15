@@ -50,9 +50,14 @@
     <div class= "botones">
       <form method="post">
         {% csrf_token %}
-        <button type="submit" name="accion" value="continuar" >Continuar con este tema</button>
+        <button type="submit" name="accion" value="continuar" >Continuar con este tema<br>
+          (con la misma cantidad de palabras)
+
+        </button>
         <button type="submit" name="accion" value="cambiar" >Cambiar de tema</button>
       </form>
+      
+      
     </div>
   </div>  
   {% endif %}

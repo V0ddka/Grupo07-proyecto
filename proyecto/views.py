@@ -15,6 +15,8 @@ from random import randint, choice
 
 SESSION_KEY_INPUT = 'ultima_input_usuario'
 SESSION_KEY_LISTA = 'ultima_lista_palabras'
+FLAG = 'usar_denuevo'
+NUM_PAL = 'holis'
 def sustituir_b_por_v(palabra_original: str, num_fijo:int) -> str:
     
     palabra = palabra_original.lower()
@@ -244,6 +246,7 @@ def logout_view(request):
 def lobby(request):
     request.session.pop(SESSION_KEY_LISTA, None)
     request.session.pop('juego_indice',None)
+    request.session.pop(FLAG, False)
     return render(request,'lobby.html')
 
 
@@ -262,13 +265,56 @@ def palabra_por_contexto(request):
     lista_de_listas = []
     input_usuario =''
     ultima_consulta = None
+    flag = request.session.get(FLAG)
+    print("se detecto-----------------------", flag)
+    if flag == True:
+        input_usu = request.session.get(SESSION_KEY_INPUT)
+        NUM = request.session.get(NUM_PAL)
+        texto_base = (
+            "Genera exactamente "+str(NUM)+ "palabras según el contexto personal y/o solicitud a continuación. "
+            "Tu respuesta DEBE ser un objeto JSON con la clave 'datos_palabras'. "
+            "El valor de 'datos_palabras' debe ser una lista de listas, "
+            "donde CADA lista interior tenga EXACTAMENTE 5 elementos en el siguiente orden: "
+            "[palabra_generada, significado_de_palabra (si vas a mencionar la palabra que elegiste en s significado, reemplaza la letra equivocada que elegiste en los elementos de la lista de mas adelante por un '_', ej si llegaras a mencionar árbol en el significado de árbol, escribelo _rbol), UNA_regla_ortografica_aplicable_a_esta_palabra, letra_equivocada_comun_relacionada_a_esta_regla_ortografica_en_esta_palabra(ej: si árbol lleva tilde por ser grave, quiero que me des la letra á, la letra tiene que ser la de la regla ortografica), indice_de_esa_letra]. "
+            "Contexto:"
+            )
+        prompt_completo = texto_base + input_usu
+
+        try:
+            response = client.models.generate_content(
+                model='gemini-2.5-flash',
+                contents= prompt_completo,
+                config=types.GenerateContentConfig(
+                    response_mime_type="application/json",
+                )
+            )
+            json_string= response.text
+            try:
+                datos_dict = json.loads(json_string)
+              
+                lista_de_listas = datos_dict.get('datos_palabras', []) 
+                if SESSION_KEY_LISTA not in request.session:
+                    request.session[SESSION_KEY_LISTA] = lista_de_listas
+                palabras_usuario = request.session[SESSION_KEY_LISTA]
+                respuesta_api = f"Datos estructurados recibidos (Formato Python):\n{lista_de_listas[1]}"
+                request.session[FLAG] = False
+                return redirect('juego')
+            except json.JSONDecodeError:
+                
+                respuesta_api = f"Error: La API no devolvió un JSON válido. Respuesta cruda: {json_string}"
+                lista_de_listas = [] 
+        except Exception as e:
+            respuesta_api = f"Ocurrió un error al conectar con la API de Gemini: {e}"
+        
+        
+        return redirect('juego')
     if request.method == 'POST':
         
         input_usuario = request.POST.get('input_usuario', '')
         num_palabras = request.POST.get('num_palabras', '')
-        if SESSION_KEY_INPUT not in request.session:
-            request.session[SESSION_KEY_INPUT] = lista_de_listas
-        input_u = request.session[SESSION_KEY_INPUT]
+        
+        request.session[SESSION_KEY_INPUT] = input_usuario #por si falla antes estaba lista_de_listas
+        request.session[NUM_PAL]= num_palabras
         
         texto_base = (
             "Genera exactamente "+str(num_palabras)+ "palabras según el contexto personal y/o solicitud a continuación. "
@@ -319,30 +365,32 @@ def juego_final(request):
     if not lista_palabras:
         return redirect('palabra_por_contexto')
     
-    
     cant_palabras = len(lista_palabras)
     palabras_acabadas = False
+    generar = False
     result = None
     texto = ''
     i = request.session.get('juego_indice', 0)
     if  i>= cant_palabras :
         palabras_acabadas = True
-        request.session.pop(SESSION_KEY_LISTA, None) 
-        request.session.pop('juego_indice', None)
-        return render(request, 'registration/juego.html', {'pal_acabadas': palabras_acabadas})
-    
-    palabra_c = lista_palabras[i][0]
-    significado = lista_palabras[i][1]
-    #letra_e = lista_palabras[i][2]
-    ind = lista_palabras[i][4]
-    letra_e = palabra_c[ind]
-    regla = lista_palabras[i][2]
-    palabra_s = list(palabra_c)
-    palabra_s[ind]= "_"
-    pal_temp = "".join(palabra_s)
-    temp = pal_temp.split("_")
-    parte1 = temp[0]
-    parte2 = temp[1]    
+        #request.session.pop(SESSION_KEY_LISTA, None) 
+        #request.session.pop('juego_indice', None)
+        #return render(request, 'registration/juego.html', {'pal_acabadas': palabras_acabadas})
+    if not palabras_acabadas:
+        palabra_c = lista_palabras[i][0]
+        significado = lista_palabras[i][1]
+        #letra_e = lista_palabras[i][2]
+        ind = lista_palabras[i][4]
+        letra_e = palabra_c[ind]
+        regla = lista_palabras[i][2]
+        palabra_s = list(palabra_c)
+        palabra_s[ind]= "_"
+        pal_temp = "".join(palabra_s)
+        temp = pal_temp.split("_")
+        parte1 = temp[0]
+        parte2 = temp[1]
+    else:
+        palabra_c = significado = ind = letra_e = regla = palabra_s = pal_temp = temp = parte1 = parte2 = None
     
 
     #if i >= cant_palabras:
@@ -378,8 +426,15 @@ def juego_final(request):
         elif palabras_acabadas == True:
                 
             if accion_solicitada == "continuar":
-                return redirect("lobby")
+                request.session[FLAG] = True
+                request.session.pop(SESSION_KEY_LISTA, None) 
+                request.session.pop('juego_indice', None)
+                print("hola")
+                return redirect("palabra_por_contexto")
             elif accion_solicitada == "cambiar":
+                request.session.pop(SESSION_KEY_LISTA, None) 
+                request.session.pop('juego_indice', None)
+                print("-----------------------------")
                 return redirect("palabra_por_contexto")
             
     return render(request, 'registration/juego.html', {'result': result, 'texto': texto, "part1": parte1,"part2": parte2,'mi_palabra': pal_temp, 'significado': significado, "pal_acabadas": palabras_acabadas})
