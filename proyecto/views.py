@@ -13,6 +13,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from random import randint, choice
 
+SESSION_KEY_INPUT = 'ultima_input_usuario'
+SESSION_KEY_LISTA = 'ultima_lista_palabras'
 def sustituir_b_por_v(palabra_original: str, num_fijo:int) -> str:
     
     palabra = palabra_original.lower()
@@ -194,10 +196,6 @@ def juego_ortografia(request):
 
     return render(request, 'registration/juego.html', {'result': result, 'texto': texto, "part1": part1,"part2": part2,'mi_palabra': palabra_a_mostrar, 'significado': significado})
 
-def juego_final(request):
-
-    hola = 0
-
 def home (request):
     return render(request,'home.html')
 
@@ -244,12 +242,14 @@ def logout_view(request):
     return redirect("home")
 
 def lobby(request):
+    request.session.pop(SESSION_KEY_LISTA, None)
+    request.session.pop('juego_indice',None)
     return render(request,'lobby.html')
+
 
 def account(request):
     return render(request,'account.html')
-SESSION_KEY_INPUT = 'ultima_input_usuario'
-SESSION_KEY_LISTA = 'ultima_lista_palabras'
+
 def palabra_por_contexto(request):
     api_key_value = os.getenv('GEMINI_APY_KEY')
     if not api_key_value:
@@ -275,9 +275,9 @@ def palabra_por_contexto(request):
             "Tu respuesta DEBE ser un objeto JSON con la clave 'datos_palabras'. "
             "El valor de 'datos_palabras' debe ser una lista de listas, "
             "donde CADA lista interior tenga EXACTAMENTE 5 elementos en el siguiente orden: "
-            "[palabra_generada, significado_de_palabra, UNA_regla_ortografica_aplicable_a_esta_palabra, letra_equivocada_comun_relacionada_a_esta_regla_ortografica_en_esta_palabra(ej: si árbol lleva tilde por ser grave, quiero que me des la letra á, la letra tiene que ser la de la regla ortografica), indice_de_esa_letra]. "
+            "[palabra_generada, significado_de_palabra (si vas a mencionar la palabra que elegiste en s significado, reemplaza la letra equivocada que elegiste en los elementos de la lista de mas adelante por un '_', ej si llegaras a mencionar árbol en el significado de árbol, escribelo _rbol), UNA_regla_ortografica_aplicable_a_esta_palabra, letra_equivocada_comun_relacionada_a_esta_regla_ortografica_en_esta_palabra(ej: si árbol lleva tilde por ser grave, quiero que me des la letra á, la letra tiene que ser la de la regla ortografica), indice_de_esa_letra]. "
             "Contexto:"
-        )   
+            )   
         prompt_completo = texto_base + input_usuario
 
         try:
