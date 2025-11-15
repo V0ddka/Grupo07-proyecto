@@ -281,7 +281,7 @@ def palabra_por_contexto(request):
             "Tu respuesta DEBE ser un objeto JSON con la clave 'datos_palabras'. "
             "El valor de 'datos_palabras' debe ser una lista de listas, "
             "donde CADA lista interior tenga EXACTAMENTE 5 elementos en el siguiente orden: "
-            "[palabra_generada, significado_de_palabra (si vas a mencionar la palabra que elegiste en s significado, reemplaza la letra equivocada que elegiste en los elementos de la lista de mas adelante por un '_', ej si llegaras a mencionar árbol en el significado de árbol, escribelo _rbol), UNA_regla_ortografica_aplicable_a_esta_palabra, letra_equivocada_comun_relacionada_a_esta_regla_ortografica_en_esta_palabra(ej: si árbol lleva tilde por ser grave, quiero que me des la letra á, la letra tiene que ser la de la regla ortografica), indice_de_esa_letra]. "
+            "[palabra_generada, significado_de_palabra (si vas a mencionar la palabra que elegiste en s significado, reemplaza la letra equivocada que elegiste en los elementos de la lista de mas adelante por un '_', ej la palabra hacha: Herramienta con hoja de metal, generalmente de acero, y mango de madera, que sirve para cortar madera o derribar _rboles<--- no hacer esto, solo con la palabra que le corresponde el significado, ej, hacha--> _acha), UNA_regla_ortografica_aplicable_a_esta_palabra, letra_equivocada_comun_relacionada_a_esta_regla_ortografica_en_esta_palabra(ej: si árbol lleva tilde por ser grave, quiero que me des la letra á, la letra tiene que ser la de la regla ortografica), indice_de_esa_letra]. "
             "Contexto:"
             )
         prompt_completo = texto_base + input_usu
