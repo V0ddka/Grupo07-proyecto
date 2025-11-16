@@ -12,7 +12,9 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from random import randint, choice
-
+from .forms import UsernameChangeForm
+from django.contrib.auth.forms import PasswordChangeForm 
+from django.contrib.auth import update_session_auth_hash
 SESSION_KEY_INPUT = 'ultima_input_usuario'
 SESSION_KEY_LISTA = 'ultima_lista_palabras'
 FLAG = 'usar_denuevo'
@@ -253,7 +255,43 @@ def lobby(request):
 
 
 def account(request):
-    return render(request,'account.html')
+
+    username_form = UsernameChangeForm() # Puedes inicializarlo con request.user si UsernameChangeForm hereda de ModelForm
+    password_form = PasswordChangeForm(request.user)
+    
+    # 2. Manejar la solicitud POST
+    if request.method == 'POST':
+        
+        # --- A. Intentar Cambiar Nombre de Usuario ---
+        # Detectamos si la solicitud viene del formulario de nombre de usuario 
+        # (asumiendo que tiene el campo 'nuevo_username')
+        if 'nuevo_username' in request.POST:
+            username_form = UsernameChangeForm(request.POST)
+            
+            if username_form.is_valid():
+                nuevo_username = username_form.cleaned_data['nuevo_username']
+                request.user.username = nuevo_username
+                request.user.save()
+                messages.success(request, 'Tu nombre de usuario ha sido cambiado con éxito.')
+                return redirect('account')
+        
+        # --- B. Intentar Cambiar Contraseña ---
+        # Detectamos si la solicitud viene del formulario de contraseña 
+        # (asumiendo que tiene el campo 'old_password')
+        elif 'old_password' in request.POST:
+            password_form = PasswordChangeForm(request.user, request.POST)
+            
+            if password_form.is_valid():
+                user = password_form.save() # Guarda la nueva contraseña hasheada
+                update_session_auth_hash(request, user) # Mantiene la sesión activa
+                messages.success(request, 'Tu contraseña ha sido cambiada con éxito.')
+                return redirect('account')
+            
+    # 3. Renderizar (para GET o si el POST falló)
+    return render(request, 'account.html', {
+        'username_form': username_form,
+        'password_form': password_form,
+    })
 
 def palabra_por_contexto(request):
     api_key_value = os.getenv('GEMINI_APY_KEY')

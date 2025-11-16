@@ -1,34 +1,77 @@
+
 {% extends 'base.html' %}
 {% load static %}
-{% block extra_css%}
+{% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/account.css' %}">
 {% endblock %}
 {% block content%}
     <div class="container">
         <h1>Cuenta</h1>
-        <div class="info">
-            <img src="{% static 'img/cat.jpeg' %}" class="photo">
-            <h3>Nombre usuario</h3>
-        </div>
-        <div class="options">
-            <h3> Ajustes cuenta</h3>
-            <ul>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        
+         <div class="info">
+         <img src="{% static 'img/cat.jpeg' %}" class="photo">
+            <h3>{{ user.username }}</h3>        </div>
+         <div class="options">
+             <h3> Ajustes cuenta</h3>
+             <ul>
                 <li class="button">
                     Cambiar foto
                 </li>
-                <li class="button">
-                     Cambiar nombre
+                                 <li class="button" onclick="document.getElementById('form-username').style.display = 'block';">
+                    Cambiar nombre
                 </li>
-                <li class="button">
+                
+                <div id="form-username" >
+                    <h4>Cambiar Nombre de Usuario</h4>
+                    <form method="post" action="{% url 'account' %}">
+                        {% csrf_token %}
+                        {{ username_form.as_p }}
+                        <button type="submit" class="button_small">Guardar Nombre</button>
+                    </form>
+                    {% if form.errors %}
+                        <div style="color: red; margin-top: 10px;">
+                            {% for field, errors in form.errors.items %}
+                                {% for error in errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                    <li class="button" onclick="document.getElementById('form-password').style.display = 'block';">
                     Cambiar contraseña
                 </li>
-                <li class="button">
+                <div id="form-password" style="display: none;">
+                    <h4>Cambiar Contraseña</h4>
+                    <form method="post" action="{% url 'account' %}">
+                        {% csrf_token %}
+                        {{ password_form.as_p }} 
+                        <button type="submit" class="button_small">Guardar Contraseña</button>
+                    </form>
+                    {% if password_form.errors %}
+                        <script>document.getElementById('form-password').style.display = 'block';</script>
+                    {% endif %}
+                </div>
+             <li class="button">
                     Eliminar cuenta
-                </li>
+                 </li>
                 <li class="button">
                     <a href="{% url 'logout' %}" class="btn">Cerrar Sesión ({{ user.username }})</a> 
                 </li>
-            </ul>
-        </div>
-    </div>
+             </ul>
+         </div>
+     </div>
+    
+    {% if form.errors %}
+    <script>
+        document.getElementById('form-username').style.display = 'block';
+    </script>
+    {% endif %}
 {% endblock %}
