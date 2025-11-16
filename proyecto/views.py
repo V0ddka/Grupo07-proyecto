@@ -345,6 +345,7 @@ def palabra_por_contexto(request):
     "[ 'Motosierra', 'máquina portátil accionada por un motor que hace girar una cadena dentada a alta velocidad para cortar madera', 'Se escribe 'rr' entre vocales para el sonido fuerte', 'r', 7 ] \n"
     "['ganado', 'Conjunto de animales de una granja, como vacas, ovejas o cerdos.', 'Las palabras terminadas en '-ado' (participios o sustantivos) se escriben con 'd'','d', 4]"
     "['gallinero', 'Lugar o recinto donde se crían aves de corral, especialmente las que ponen huevos.', 'Se escriben con 'll' las palabras que contienen el grupo -ill-','l', 3]"
+    "['acariciar','Rozar o tocar suavemente a alguien o algo con la mano o con otra parte del cuerpo, como señal de cariño o afecto.', 'Los verbos terminados en '-ciar' se escriben con 'c', excepto excepciones como 'lisiar' o 'extasiar','c',5]"
     "---------------------------------------------------\n\n"
     
     "Contexto:"
@@ -387,15 +388,38 @@ def palabra_por_contexto(request):
         request.session[SESSION_KEY_INPUT] = input_usuario #por si falla antes estaba lista_de_listas
         request.session[NUM_PAL]= num_palabras
         
-        texto_base = (
-            "Genera exactamente "+str(num_palabras)+ "palabras según el contexto personal y/o solicitud a continuación. "
-            "***IMPORTANTE, no usar estas palabras:"+ palabras_a_evitar+"."  
-            "Tu respuesta DEBE ser un objeto JSON con la clave 'datos_palabras'. "
-            "El valor de 'datos_palabras' debe ser una lista de listas, "
-            "donde CADA lista interior tenga EXACTAMENTE 5 elementos en el siguiente orden: "
-            "[palabra_generada, significado_de_palabra (si vas a mencionar la palabra que elegiste en s significado, reemplaza la letra equivocada que elegiste en los elementos de la lista de mas adelante por un '_', ej si llegaras a mencionar árbol en el significado de árbol, escribelo _rbol), UNA_regla_ortografica_aplicable_a_esta_palabra, letra_equivocada_comun_relacionada_a_esta_regla_ortografica_en_esta_palabra(ej: si árbol lleva tilde por ser grave, quiero que me des la letra á, la letra tiene que ser la de la regla ortografica), indice_de_esa_letra]. "
-            "Contexto:"
-            )   
+        texto_base = (# str(num_palabras)
+            "Genera exactamente "+str(num_palabras)+ " palabras según el contexto y solicitud. "
+    
+    "***RESTRICCIÓN IMPORTANTE: NO USAR estas palabras: "+ palabras_a_evitar+"***\n"
+    
+    "Tu respuesta DEBE ser un objeto JSON con la clave 'datos_palabras'. "
+    "El valor de 'datos_palabras' debe ser una lista de listas, "
+    "donde CADA lista interior tenga EXACTAMENTE 5 elementos en el siguiente orden estricto: "
+    "[palabra_generada, significado_palabra, regla_ortografica_foco, letra_foco_de_la_regla, indice_de_la_letra_foco].\n\n"
+    
+    "--- INSTRUCCIÓN CLAVE DE ENMASCARAMIENTO Y COHERENCIA ---\n"
+    
+    "1. **SIGNIFICADO PALABRA (Segundo elemento):** El significado DEBE referirse a la 'palabra_generada'. ***RESTRICCIÓN CRÍTICA: ESTE CAMPO NUNCA DEBE CONTENER LA PALABRA GENERADA (Elemento 0) NI NINGUNA FORMA ENMASCARADA DE LA MISMA.*** Debe ser una definición limpia y completa.\n"
+    
+    "2. **COHERENCIA DE LA REGLA:** La 'letra_foco_de_la_regla' (cuarto elemento) DEBE ser la letra o grupo de letras que es el **punto central** de la 'regla_ortografica_foco' (tercer elemento). Ejemplo: Si la regla es 'Se usa la doble r entre vocales', la letra_foco debe ser 'rr' (o 'r').\n"
+    
+    "3. **ÍNDICE:** El 'indice_de_la_letra_foco' debe ser la posición (empezando desde 0) de esa letra en la 'palabra_generada'.\n"
+    
+    "--- EJEMPLO DE LISTA (¡SEGUIMIENTO ESTRICTO!) ---\n"
+    
+    "Para la palabra 'Granero':\n"
+    "[ 'Granero', 'Edificio en la granja para guardar el grano y el heno', 'Se escriben con 'g' las palabras que empiezan con gra-, gre-, gri-, gro-, gru-', 'g', 0 ]\n"
+    
+    "Para la palabra 'Motosierra':\n"
+    "[ 'Motosierra', 'máquina portátil accionada por un motor que hace girar una cadena dentada a alta velocidad para cortar madera', 'Se escribe 'rr' entre vocales para el sonido fuerte', 'r', 7 ] \n"
+    "['ganado', 'Conjunto de animales de una granja, como vacas, ovejas o cerdos.', 'Las palabras terminadas en '-ado' (participios o sustantivos) se escriben con 'd'','d', 4]"
+    "['gallinero', 'Lugar o recinto donde se crían aves de corral, especialmente las que ponen huevos.', 'Se escriben con 'll' las palabras que contienen el grupo -ill-','l', 3]"
+    "['acariciar','Rozar o tocar suavemente a alguien o algo con la mano o con otra parte del cuerpo, como señal de cariño o afecto.', 'Los verbos terminados en '-ciar' se escriben con 'c', excepto excepciones como 'lisiar' o 'extasiar','c',5]"
+    "---------------------------------------------------\n\n"
+    
+    "Contexto:"
+)   
         prompt_completo = texto_base + input_usuario
 
         try:
