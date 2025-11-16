@@ -17,14 +17,11 @@
         
          <div class="info">
          <img src="{% static 'img/cat.jpeg' %}" class="photo">
-            <h3>{{ user.username }}</h3>        </div>
+            <h3>¡Hola {{ user.username }}!</h3>        </div>
          <div class="options">
              <h3> Ajustes cuenta</h3>
              <ul>
-                <li class="button">
-                    Cambiar foto
-                </li>
-                                 <li class="button" onclick="document.getElementById('form-username').style.display = 'block';">
+                         <li class="button" onclick="document.getElementById('form-username').style.display = 'block';">
                     Cambiar nombre
                 </li>
                 

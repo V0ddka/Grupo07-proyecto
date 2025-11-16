@@ -346,6 +346,7 @@ def palabra_por_contexto(request):
     "['ganado', 'Conjunto de animales de una granja, como vacas, ovejas o cerdos.', 'Las palabras terminadas en '-ado' (participios o sustantivos) se escriben con 'd'','d', 4]"
     "['gallinero', 'Lugar o recinto donde se crían aves de corral, especialmente las que ponen huevos.', 'Se escriben con 'll' las palabras que contienen el grupo -ill-','l', 3]"
     "['acariciar','Rozar o tocar suavemente a alguien o algo con la mano o con otra parte del cuerpo, como señal de cariño o afecto.', 'Los verbos terminados en '-ciar' se escriben con 'c', excepto excepciones como 'lisiar' o 'extasiar','c',5]"
+    "['establo', 'Construcción destinada a albergar animales de una explotación, especialmente caballos, vacas o cerdos.','Se escriben con 'b' las palabras que contienen el grupo consonántico 'bl'.', 'b', 4]"
     "---------------------------------------------------\n\n"
     
     "Contexto:"
@@ -416,6 +417,7 @@ def palabra_por_contexto(request):
     "['ganado', 'Conjunto de animales de una granja, como vacas, ovejas o cerdos.', 'Las palabras terminadas en '-ado' (participios o sustantivos) se escriben con 'd'','d', 4]"
     "['gallinero', 'Lugar o recinto donde se crían aves de corral, especialmente las que ponen huevos.', 'Se escriben con 'll' las palabras que contienen el grupo -ill-','l', 3]"
     "['acariciar','Rozar o tocar suavemente a alguien o algo con la mano o con otra parte del cuerpo, como señal de cariño o afecto.', 'Los verbos terminados en '-ciar' se escriben con 'c', excepto excepciones como 'lisiar' o 'extasiar','c',5]"
+    "['establo', 'Construcción destinada a albergar animales de una explotación, especialmente caballos, vacas o cerdos.','Se escriben con 'b' las palabras que contienen el grupo consonántico 'bl'.', 'b', 4]"
     "---------------------------------------------------\n\n"
     
     "Contexto:"
