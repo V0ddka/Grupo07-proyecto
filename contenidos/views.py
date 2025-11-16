@@ -6,8 +6,9 @@ from django.http import HttpResponse
 
 def apuntes(request):
     apuntes = contenidos.objects.all()
-    return render(request, 'apuntes/apuntes.html', {'apuntes': apuntes})
+    return render(request, 'apuntes/apuntes-base.html', {'apuntes': apuntes})
 
-def apuntes_bov(request,slug):
+def apuntes_detalle(request,slug):
     apunte = contenidos.objects.get(slug=slug)
-    return render(request, 'apuntes/apuntes.html', {'apunt': apunte})
+    apuntes = contenidos.objects.all()
+    return render(request, 'apuntes/apuntes-detalle-base.html', {'apunt': apunte, 'apuntes': apuntes})

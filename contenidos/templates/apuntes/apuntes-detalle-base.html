@@ -1,0 +1,15 @@
+{% extends 'apuntes/apuntes-base.html' %}
+{% load static %}
+
+{% block title %}{{ apunt.titulo }}{% endblock %}
+{% block info %}
+    <section class="apunte-detalle">
+        <h1 class="tema">{{ apunt.titulo }}</h1>
+        <div class="texto">
+            <p>{{ apunt.texto|linebreaks }}</p>
+        </div>
+        <div class="iframe">
+            {{ apunt.iframe|safe }}
+        </div>
+    </section>
+{% endblock %}

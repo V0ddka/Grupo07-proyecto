@@ -2,12 +2,12 @@ body{
     background-color: rgb(26, 94, 76);
 }
 .cont{
+    margin-top: 2rem;
     display: flex;
     width: 100%;
     justify-content: center;
     flex-direction: column;
     position: relative;
-    margin-top: 5rem;;
 }
 h1{
     color: white;

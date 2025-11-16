@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Apuntes{% endblock %}
+{% block extra_css %}<!--Agregar más estilos-->
+<link rel="stylesheet" href="{% static 'css/apuntes.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="main-cont">
+        <aside class="apunte">
+            <h1 id="apu">Apuntes</h1>
+            <div class="options">
+                {% for apunte in apuntes %}
+                    <a href="{% url 'contenidos:detalle-base' slug=apunte.slug %}">
+                        <h2 class="tema">
+                            {{ apunte.titulo }}
+                        </h2>
+                    </a>
+                    
+                {% endfor %}
+            </div>
+        </aside>
+        {% block info %}
+            <div class="apunte-detalle">
+                <h2>Selecciona un apunte</h2>
+            </div>
+        {% endblock %}
+    </div>
+    
+{% endblock %}
