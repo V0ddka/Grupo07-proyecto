@@ -2,10 +2,11 @@ body {
     background: rgb(26, 94, 76);
     display: flex; 
     justify-content: center; 
-    align-items: center; 
+    align-items: flex-start;
     min-height: 100vh; 
     margin: 0;
     font-family: Arial, sans-serif;
+    overflow-y: auto;
 }
 
 
@@ -17,9 +18,22 @@ body {
     border-radius: 25px; 
     border: 1px solid #ffffff;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    margin: 40px auto;
+       
+    
 }
 
-
+.registration_container .helptext ul {
+    color: #b3d9b3; /* Color verde claro */
+    font-size: 0.9em;
+    list-style-type: disc;
+    margin-top: 10px;
+    margin-left: 20px;
+    padding-left: 0;
+}
+.registration_container .helptext ul li {
+    margin-bottom: 3px;
+}
 .container-form h3 {
     color: white;
     font-size: 28px;
@@ -43,9 +57,11 @@ label {
     margin-bottom: 5px;
 }
 
-
+.registration_container input[type="text"],
+.registration_container input[type="password"],
 .login_container input[type="text"],
-.login_container input[type="password"] {
+.login_container input[type="password"]
+ {
     width: 100%;
     padding: 10px;
     border: 1px solid #2a8a62;
@@ -57,7 +73,8 @@ label {
     transition: border-color 0.3s;
 }
 
-.login_container input:focus {
+.login_container input:focus
+.registration_container input:focus {
     border-color: greenyellow;
     outline: none;
 }
@@ -126,4 +143,15 @@ h2{
     font-size: 40px;
     display: grid;
     place-items: center;
+}
+.registration_container label {
+    display: block; 
+    color: #b3d9b3; /* Color verde claro para las etiquetas */
+    font-size: 16px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+.registration_container p {
+    margin: 0;
+    padding: 0;
 }
