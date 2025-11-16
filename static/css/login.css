@@ -19,8 +19,8 @@ body {
     border: 1px solid #ffffff;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
     margin: 40px auto;
-       
-    
+    margin-top: 5rem;
+    color: #b3d9b3;
 }
 
 .registration_container .helptext ul {
