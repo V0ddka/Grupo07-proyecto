@@ -1,6 +1,5 @@
 /* Textos*/
 #Title{
-    margin-top: 10rem;/* Ajusta el margen superior para evitar solapamiento con el header */
     color: white;
     font-size: 40px;
     display: grid;

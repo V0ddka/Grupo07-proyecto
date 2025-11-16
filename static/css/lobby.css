@@ -1,10 +1,10 @@
 /*content box*/
 .container{
+    margin-top: 4rem;
     display: flex;
     justify-content: center;
     flex-direction: column;
     position: relative;
-    margin-top: 8rem;
 }
 h3{
     padding: 1rem;
