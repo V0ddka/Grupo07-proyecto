@@ -60,7 +60,9 @@
                     {% endif %}
                 </div>
              <li class="button">
-                    Eliminar cuenta
+                    Estadísticas de esta sesión: <br>
+                    Respuestas correctas: {{buenas}} <br>
+                    Respuestas incorrectas: {{malas}}
                  </li>
                 <li class="button">
                     <a href="{% url 'logout' %}" class="btn">Cerrar Sesión ({{ user.username }})</a> 

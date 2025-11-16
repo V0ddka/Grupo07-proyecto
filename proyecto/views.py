@@ -20,6 +20,8 @@ SESSION_KEY_LISTA = 'ultima_lista_palabras'
 FLAG = 'usar_denuevo'
 NUM_PAL = 'holis'
 NO = 'no'
+JUEGO_STATS = 'juego_stats'
+prim = "prim"
 def sustituir_b_por_v(palabra_original: str, num_fijo:int) -> str:
     
     palabra = palabra_original.lower()
@@ -258,7 +260,8 @@ def account(request):
 
     username_form = UsernameChangeForm() # Puedes inicializarlo con request.user si UsernameChangeForm hereda de ModelForm
     password_form = PasswordChangeForm(request.user)
-    
+    holi = request.session.get(JUEGO_STATS, {"buenas":0, "malas":0})
+    print(holi)
     # 2. Manejar la solicitud POST
     if request.method == 'POST':
         
@@ -291,6 +294,8 @@ def account(request):
     return render(request, 'account.html', {
         'username_form': username_form,
         'password_form': password_form,
+        'buenas': holi["buenas"],
+        'malas': holi["malas"]
     })
 
 def palabra_por_contexto(request):
@@ -314,14 +319,36 @@ def palabra_por_contexto(request):
         input_usu = request.session.get(SESSION_KEY_INPUT)
         NUM = request.session.get(NUM_PAL)
         texto_base = (
-            "Genera exactamente "+str(NUM)+ "palabras según el contexto personal y/o solicitud a continuación. "
-            "***IMPORTANTE, no usar estas palabras:"+ palabras_a_evitar+"."
-            "Tu respuesta DEBE ser un objeto JSON con la clave 'datos_palabras'. "
-            "El valor de 'datos_palabras' debe ser una lista de listas, "
-            "donde CADA lista interior tenga EXACTAMENTE 5 elementos en el siguiente orden: "
-            "[palabra_generada, significado_de_palabra (si vas a mencionar la palabra que elegiste en s significado, reemplaza la letra equivocada que elegiste en los elementos de la lista de mas adelante por un '_', ej la palabra hacha: Herramienta con hoja de metal, generalmente de acero, y mango de madera, que sirve para cortar madera o derribar _rboles<--- no hacer esto, solo con la palabra que le corresponde el significado, ej, hacha--> _acha), UNA_regla_ortografica_aplicable_a_esta_palabra, letra_equivocada_comun_relacionada_a_esta_regla_ortografica_en_esta_palabra(ej: si árbol lleva tilde por ser grave, quiero que me des la letra á, la letra tiene que ser la de la regla ortografica), indice_de_esa_letra]. "
-            "Contexto:"
-            )
+    "Genera exactamente "+str(NUM)+ " palabras según el contexto y solicitud. "
+    
+    "***RESTRICCIÓN IMPORTANTE: NO USAR estas palabras: "+ palabras_a_evitar+"***\n"
+    
+    "Tu respuesta DEBE ser un objeto JSON con la clave 'datos_palabras'. "
+    "El valor de 'datos_palabras' debe ser una lista de listas, "
+    "donde CADA lista interior tenga EXACTAMENTE 5 elementos en el siguiente orden estricto: "
+    "[palabra_generada, significado_palabra, regla_ortografica_foco, letra_foco_de_la_regla, indice_de_la_letra_foco].\n\n"
+    
+    "--- INSTRUCCIÓN CLAVE DE ENMASCARAMIENTO Y COHERENCIA ---\n"
+    
+    "1. **SIGNIFICADO PALABRA (Segundo elemento):** El significado DEBE referirse a la 'palabra_generada'. ***RESTRICCIÓN CRÍTICA: ESTE CAMPO NUNCA DEBE CONTENER LA PALABRA GENERADA (Elemento 0) NI NINGUNA FORMA ENMASCARADA DE LA MISMA.*** Debe ser una definición limpia y completa.\n"
+    
+    "2. **COHERENCIA DE LA REGLA:** La 'letra_foco_de_la_regla' (cuarto elemento) DEBE ser la letra o grupo de letras que es el **punto central** de la 'regla_ortografica_foco' (tercer elemento). Ejemplo: Si la regla es 'Se usa la doble r entre vocales', la letra_foco debe ser 'rr' (o 'r').\n"
+    
+    "3. **ÍNDICE:** El 'indice_de_la_letra_foco' debe ser la posición (empezando desde 0) de esa letra en la 'palabra_generada'.\n"
+    
+    "--- EJEMPLO DE LISTA (¡SEGUIMIENTO ESTRICTO!) ---\n"
+    
+    "Para la palabra 'Granero':\n"
+    "[ 'Granero', 'Edificio en la granja para guardar el grano y el heno', 'Se escriben con 'g' las palabras que empiezan con gra-, gre-, gri-, gro-, gru-', 'g', 0 ]\n"
+    
+    "Para la palabra 'Motosierra':\n"
+    "[ 'Motosierra', 'máquina portátil accionada por un motor que hace girar una cadena dentada a alta velocidad para cortar madera', 'Se escribe 'rr' entre vocales para el sonido fuerte', 'r', 7 ] \n"
+    "['ganado', 'Conjunto de animales de una granja, como vacas, ovejas o cerdos.', 'Las palabras terminadas en '-ado' (participios o sustantivos) se escriben con 'd'','d', 4]"
+    "['gallinero', 'Lugar o recinto donde se crían aves de corral, especialmente las que ponen huevos.', 'Se escriben con 'll' las palabras que contienen el grupo -ill-','l', 3]"
+    "---------------------------------------------------\n\n"
+    
+    "Contexto:"
+)
         prompt_completo = texto_base + input_usu
 
         try:
@@ -407,10 +434,12 @@ def juego_final(request):
     lista_palabras = request.session.get(SESSION_KEY_LISTA, None)
     #[palabra_generada, significado_de_palabra, letra_equivocada_comun, 
     # indice_de_esa_letra, regla_ortografica_aplicable]. "
-    
+    if JUEGO_STATS not in request.session:
+        request.session[JUEGO_STATS] = {'buenas': 0, 'malas': 0}
+    stats = request.session[JUEGO_STATS]
     if not lista_palabras:
         return redirect('palabra_por_contexto')
-    
+    primer = request.session.get(prim, True)
     cant_palabras = len(lista_palabras)
     palabras_acabadas = False
     generar = False
@@ -447,6 +476,7 @@ def juego_final(request):
         if accion_solicitada == 'saltar':
             historial.append(palabra_c)
             request.session[NO]= historial
+            request.session[prim] = True
             
             i += 1
             request.session['juego_indice'] = i
@@ -458,9 +488,19 @@ def juego_final(request):
             texto = request.POST.get('texto', '')
             if letra_e and texto.lower() == letra_e.lower():
                 request.session['mensaje_resultado'] = f"¡Correcto! La palabra era {palabra_c}."
+                if primer:
+                    stats["buenas"]+=1
+                    primer = False
+                    request.session[prim]= primer
+                    
                 
             else:
                 request.session['mensaje_resultado'] = f"Incorrecto ¡Inténtalo de nuevo!"
+                if primer:
+                    stats['malas'] += 1 # Error
+                    primer = False
+                    request.session[prim]= primer
+            request.session.modified = True
             mensaje = request.session.pop('mensaje_resultado', None)
             quepaso = None
             if mensaje:
@@ -474,7 +514,7 @@ def juego_final(request):
         elif accion_solicitada == "lobby":
             return redirect('lobby')
         elif palabras_acabadas == True:
-                
+            request.session[prim] = True    
             if accion_solicitada == "continuar":
                 request.session[FLAG] = True
                 request.session.pop(SESSION_KEY_LISTA, None) 
