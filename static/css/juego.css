@@ -4,6 +4,7 @@
     font-size: 40px;
     display: grid;
     place-items: center;
+    margin-top: 6rem;
 }
 
 .Signi{
@@ -61,7 +62,7 @@ textarea{
     resize: none;
     border: 2px solid #999;
     color: white; /* Para que el texto de los span se vea */
-    font-size: 1.2em
+    font-size: 0.95em;
     
     
 

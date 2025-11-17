@@ -5,10 +5,13 @@
 }
 #apu{
     text-align: center;
-    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.304);
 }
 .tema{
     padding: 0.5rem;
+    font-size: 1.5rem;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.304);
 }
 .apunte{
     border-right: 2px solid white;
@@ -43,12 +46,12 @@
 }
 
 .options a:hover{
-    background-color: rgb(72, 174, 85);
+    background-color: #2a8a62;
     transition: 0.3s;
 }
 
 .texto{
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     text-align: justify;
     width: 70%;
     margin: 2rem;

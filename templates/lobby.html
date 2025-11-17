@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="{% static 'css/lobby.css' %}">
 {% endblock %}
 {% block title %}Bienvenido a Lexi{% endblock %}
-
+ 
 {% block content%}
     <div class="container">
         <h1>¿Qué quieres hacer hoy?</h1>
@@ -20,5 +20,30 @@
                 Ejercita tus conocimientos
             </a>
         </div>  
+    </div> 
+{% endblock %}
+
+{% block modal %}<!--Por si quieren cambiar cont modal ayuda-->
+    <h2>¡Bienvenido!</h2>
+    <p>Esta debe ser tu primera vez aqui ¡Dejanos guiarte por la pagina!</p>
+    <div class="mucho-div">
+        <div class="first">
+            <img src="{% static '/img/boton-apu.png'%}" class="ex">
+            <div class="words">
+                <p>¿Qué es este boton? Si lo presionas, podras ver y aprender sobre las reglas ortograficas</p>
+            </div>
+        </div>
+        <div class="first">
+            <img src="{% static '/img/boton-eje.png'%}" class="ex">
+            <div class="words">
+                <p>¿Y qué hay de esté? Al presionarlo podras ejercitar las lecciones aprendidas ¡Solo tienes que colocar tu tema de interes y cuantos ejercicios/preguntas quieres!</p>
+            </div>
+        </div>
+        <div class="first">
+            <img src="{% static '/img/btns-hea.png'%}" class="ex">
+            <div class="words">
+                <p>¿Y estos? El simbolo de casa te llevara a la pagina de inicio, el de persona a tu perfil y el de signo de interrogacion abre esta ventana de ayuda</p>
+            </div>
+        </div>
     </div>
 {% endblock %}

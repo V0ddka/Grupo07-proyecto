@@ -11,13 +11,13 @@ body{
 }
 h1{
     color: white;
-    font-size: 60px;
+    font-size: 50px;
     text-align: center;
     padding: 1rem;
 }
 h3{
     color: white;
-    font-size: 30px;
+    font-size: 25px;
     text-align: center;
     padding: 2rem;
 }
@@ -28,15 +28,17 @@ p{
 .bt{
     text-decoration: none;
     padding: 1.2rem 3rem;
-    background-color:  rgb(26, 94, 76);
     border-radius: 25px;
     color: white;
-    transition: all 0.3s;
     display: inline-block;
+    border: 3px solid rgba(255, 255, 255, 0.304);   
+    font-weight: bold;
+    transition: background-color .2s, border-color .2s, box-shadow .2s, transform .15s;
 }
 .bt:hover{
-    background-color: greenyellow;
-    color: black;
+    background: #2a8a62;
+    border-color: greenyellow;
+    transform: scale(1.01);
 }
 .btns{
     text-align: center;
@@ -62,5 +64,5 @@ p{
     width: 70%;
     margin:auto;
     margin-top: 2rem;
-    border: 2px solid white;
+    border: 5px dashed white;
 }

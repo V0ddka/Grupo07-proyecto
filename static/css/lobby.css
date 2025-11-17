@@ -1,10 +1,13 @@
 /*content box*/
 .container{
+    margin: auto;
     margin-top: 4rem;
+    width: 70%;
     display: flex;
     justify-content: center;
     flex-direction: column;
     position: relative;
+    
 }
 h3{
     padding: 1rem;
@@ -21,14 +24,17 @@ h1{
     justify-content: center;
     gap: 3rem; 
     margin: 1rem auto;
-    margin-top: 3rem; 
-    width: 90%; 
+    width: 70%; 
+    border: 5px dashed white;
+    padding: 4rem;
+    border-radius: 25px;
+    background-color: rgb(33, 73, 62);
 }
 /*button*/
 .type{
     font-size: 1.5rem;
     text-align: center;
-    background: rgb(62, 127, 79);
+    border: 3px solid rgba(255, 255, 255, 0.304);;
     border-radius: 1rem;
     width: 15rem;
     height: 15rem;
@@ -39,8 +45,8 @@ h1{
     padding: 0.5rem;
     text-decoration: none;
     gap: 1rem;
-    color: white
-    ;
+    color: white;
+    transition: background-color .2s, border-color .2s, box-shadow .2s, transform .15s; 
     
 }
 .type:hover{
@@ -51,4 +57,35 @@ h1{
 img{
     width: 5rem;
     height: auto;
+}
+
+.first{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.304);
+    padding: 1rem;
+    gap: 3rem;
+}
+.words{
+    width: 50%;
+    text-align: justify;
+}
+
+.ex{
+    width: 150px;
+    height: auto;
+}
+.mucho-div{
+    border: 2px dashed white;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width:70%;
+    margin: 1rem;
+}
+.modal h2{
+    padding-bottom: 2rem;
 }

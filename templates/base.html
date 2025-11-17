@@ -2,6 +2,9 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
         <meta charset="utf-8" />
         <title>{% block title %}Titulo{% endblock %}</title><!--Cambiar titulo pag-->
         <link rel="stylesheet" href="{% static 'css/header.css' %}">
@@ -36,7 +39,7 @@
                 {% block acc %}
                 <!--Boton que manda a perfil cuenta-->
                 <a href="{% url 'account' %}" class="btn">
-                    <img class="profile" src="{% static 'img/kitty.jpg' %}">
+                    <img src="{% static 'img/person-icon.svg' %}">
                 </a>
                 {% endblock %}
             </div>
@@ -45,8 +48,6 @@
         <div class="modal-container" id="modal-container">
             <div class="modal">
                 {% block modal %}<!--Por si quieren cambiar cont modal ayuda-->
-                <h2>¡Bienvenido!</h2>
-                <p>Esta debe ser tu primera vez aqui ¡Dejanos guiarte por la pagina!</p>
                 {% endblock %}
                 <button id="btn-cerrar-modal">Cerrar</button>
             </div>
