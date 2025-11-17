@@ -1,7 +1,6 @@
 
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Cuenta{% endblock %}
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/account.css' %}">
 {% endblock %}
@@ -16,61 +15,57 @@
             {% endfor %}
         {% endif %}
         
-        <div class="info">
-            <h3>Usuario: <span id="us">{{ user.username }}</span></h3>        
-        </div>
-        <div class="options">
-            <div class="ajuste">
-                <h3> Ajustes cuenta</h3>
-                <ul>
-                    <li class="button" onclick="document.getElementById('form-username').style.display = 'block';">
-                        Cambiar nombre
-                    </li>
-                    
-                    <div id="form-username" >
-                        <h4>Cambiar Nombre de Usuario</h4>
-                        <form method="post" action="{% url 'account' %}">
-                            {% csrf_token %}
-                            {{ username_form.as_p }}
-                            <button type="submit" class="button_small">Guardar Nombre</button>
-                        </form>
-                        {% if form.errors %}
-                            <div style="color: red; margin-top: 10px;">
-                                {% for field, errors in form.errors.items %}
-                                    {% for error in errors %}
-                                        <p>{{ error }}</p>
-                                    {% endfor %}
+         <div class="info">
+         <img src="{% static 'img/cat.jpeg' %}" class="photo">
+            <h3>¡Hola {{ user.username }}!</h3>        </div>
+         <div class="options">
+             <h3> Ajustes cuenta</h3>
+             <ul>
+                         <li class="button" onclick="document.getElementById('form-username').style.display = 'block';">
+                    Cambiar nombre
+                </li>
+                
+                <div id="form-username" >
+                    <h4>Cambiar Nombre de Usuario</h4>
+                    <form method="post" action="{% url 'account' %}">
+                        {% csrf_token %}
+                        {{ username_form.as_p }}
+                        <button type="submit" class="button_small">Guardar Nombre</button>
+                    </form>
+                    {% if form.errors %}
+                        <div style="color: red; margin-top: 10px;">
+                            {% for field, errors in form.errors.items %}
+                                {% for error in errors %}
+                                    <p>{{ error }}</p>
                                 {% endfor %}
-                            </div>
-                        {% endif %}
-                    </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
                     <li class="button" onclick="document.getElementById('form-password').style.display = 'block';">
-                        Cambiar contraseña
-                    </li>
-                    <div id="form-password" style="display: none;">
-                        <h4>Cambiar Contraseña</h4>
-                        <form method="post" action="{% url 'account' %}">
-                            {% csrf_token %}
-                            {{ password_form.as_p }} 
-                            <button type="submit" class="button_small">Guardar Contraseña</button>
-                        </form>
-                        {% if password_form.errors %}
-                            <script>document.getElementById('form-password').style.display = 'block';</script>
-                        {% endif %}
-                    </div>
-                    <li class="close">
-                        <a href="{% url 'logout' %}" class="bt">Cerrar Sesión</a> 
-                    </li>
-                </ul>
-            </div>
-            <div class="stats">
-                <h3> Estadísticas </h3>
-                <div class="data">
+                    Cambiar contraseña
+                </li>
+                <div id="form-password" style="display: none;">
+                    <h4>Cambiar Contraseña</h4>
+                    <form method="post" action="{% url 'account' %}">
+                        {% csrf_token %}
+                        {{ password_form.as_p }} 
+                        <button type="submit" class="button_small">Guardar Contraseña</button>
+                    </form>
+                    {% if password_form.errors %}
+                        <script>document.getElementById('form-password').style.display = 'block';</script>
+                    {% endif %}
+                </div>
+             <li class="button">
+                    Estadísticas de esta sesión: <br>
                     Respuestas correctas: {{buenas}} <br>
                     Respuestas incorrectas: {{malas}}
-                </div>
-            </div>
-        </div>
+                 </li>
+                <li class="button">
+                    <a href="{% url 'logout' %}" class="btn">Cerrar Sesión ({{ user.username }})</a> 
+                </li>
+             </ul>
+         </div>
      </div>
     
     {% if form.errors %}
