@@ -66,6 +66,7 @@ img{
     border-bottom: 2px solid rgba(255, 255, 255, 0.304);
     padding: 1rem;
     gap: 3rem;
+    border-radius: 25px;
 }
 .words{
     width: 50%;

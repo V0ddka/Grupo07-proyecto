@@ -9,7 +9,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 2px solid white;
+    border: 5px dashed white;
     padding: 1rem;
     border-radius: 25px;
     background-color: rgb(33, 73, 62);
@@ -18,6 +18,9 @@
     border-right: 3px dashed white;
     text-align: center;
     padding: 1rem;
+}
+.ajuste h3{
+    margin-bottom: 2rem;
 }
 .stats{
     text-align: center;
@@ -49,10 +52,11 @@ ul{
     margin: 1rem;
     padding: 1rem;
     cursor: pointer; 
-
+    text-align: center;
     transition: background-color .2s, border-color .2s, box-shadow .2s, transform .15s; 
 }
 .close{
+    text-align: center;
     border-radius: 15px;
     border: 2px solid rgba(255, 255, 255, 0.304);
     color: white;
